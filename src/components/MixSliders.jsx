@@ -1,8 +1,8 @@
 // Source donnees : mix de reference et coefficients depuis src/data/energyData.js.
 
-import { ENERGY_SOURCES, REF_MIX } from '../data/energyData'
+import { ENERGY_SOURCES } from '../data/energyData'
 
-export default function MixSliders({ mix, onChange, theme }) {
+export default function MixSliders({ mix, onChange, theme, presetLabel = null }) {
   const sources = Object.values(ENERGY_SOURCES)
   const total = sources.reduce((sum, source) => sum + mix[source.id], 0)
   const isLight = theme === 'light'
@@ -29,25 +29,12 @@ export default function MixSliders({ mix, onChange, theme }) {
               isLight ? 'text-[#111827]' : 'text-[#F9FAFB]'
             }`}
           >
-            Mix énergétique
+            {presetLabel ? `Mix énergétique de ${presetLabel}` : 'Mix énergétique'}
           </h2>
           <p className={`mt-1 text-sm ${isLight ? 'text-[#475569]' : 'text-[#9CA3AF]'}`}>
             Ajustez chaque filière indépendamment.
           </p>
         </div>
-
-        <button
-          type="button"
-          title="Réinitialise le mix avec les données réelles du Bilan électrique RTE 2025 (source : ODRÉ)"
-          onClick={() => onChange(REF_MIX)}
-          className={`shrink-0 rounded border px-3 py-2 text-xs font-semibold transition ${
-            isLight
-              ? 'border-[#CBD5E1] text-[#111827] hover:border-[#22D3EE] hover:text-[#0891B2]'
-              : 'border-[#1F2937] text-[#F9FAFB] hover:border-[#22D3EE] hover:text-[#22D3EE]'
-          }`}
-        >
-          Reset RTE
-        </button>
       </div>
 
       <div className="space-y-5">

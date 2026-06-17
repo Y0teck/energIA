@@ -24,6 +24,12 @@ function getRenewablesColor(value) {
   return 'text-[#EF4444]'
 }
 
+function getLowCarbonColor(value) {
+  if (value >= 70) return 'text-[#10B981]'
+  if (value >= 40) return 'text-[#F59E0B]'
+  return 'text-[#EF4444]'
+}
+
 function GaugeCard({ label, value, unit, colorClass, sublabel, theme }) {
   const isLight = theme === 'light'
 
@@ -57,7 +63,7 @@ function GaugeCard({ label, value, unit, colorClass, sublabel, theme }) {
   )
 }
 
-export default function ResultGauges({ co2, cost, stability, renewables, theme }) {
+export default function ResultGauges({ co2, cost, stability, renewables, lowCarbon, theme }) {
   return (
     <section className="grid grid-cols-1 gap-4 sm:grid-cols-2">
       <GaugeCard
@@ -90,6 +96,14 @@ export default function ResultGauges({ co2, cost, stability, renewables, theme }
         unit="%"
         colorClass={getRenewablesColor(renewables)}
         sublabel="Éolien + Solaire + Hydraulique + Bioénergies"
+        theme={theme}
+      />
+      <GaugeCard
+        label="Énergie bas-carbone"
+        value={lowCarbon}
+        unit="%"
+        colorClass={getLowCarbonColor(lowCarbon)}
+        sublabel="Nucléaire + Renouvelables"
         theme={theme}
       />
     </section>

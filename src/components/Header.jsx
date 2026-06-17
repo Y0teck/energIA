@@ -7,9 +7,16 @@ export default function Header({ theme, onToggleTheme }) {
     <header className={`relative ${isLight ? 'bg-white' : 'bg-[#0A0F1E]'}`}>
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-6">
         <div>
-          <h1 className="font-mono text-3xl font-bold text-[#22D3EE]">ÉnergIA</h1>
+          <h1 className="leading-none">
+            <svg width="180" height="48" viewBox="0 0 180 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="ÉnergIA">
+              <circle cx="24" cy="24" r="17" stroke="#00D9FF" strokeWidth="3"/>
+              <path d="M27 7C34.5 8.5 40 15.3 40 23.5C40 32.6 32.6 40 23.5 40C15.7 40 9.1 34.6 7.4 27.3" stroke="#38F2B2" strokeWidth="3" strokeLinecap="round"/>
+              <path d="M26.8 13L16 25.2H24L21.2 35L32 22.8H24L26.8 13Z" fill="#FFB000"/>
+              <text x="52" y="31" fontFamily="Inter, system-ui, sans-serif" fontSize="25" fontWeight="800" letterSpacing="0.5" fill="#00D9FF">ÉnergIA</text>
+            </svg>
+          </h1>
           <p className={`mt-1 text-sm ${isLight ? 'text-[#475569]' : 'text-[#9CA3AF]'}`}>
-            Simulateur de mix électrique français
+            Explorez l'impact de chaque source d'énergie sur le climat, le coût et la stabilité du réseau.
           </p>
         </div>
 
@@ -26,19 +33,6 @@ export default function Header({ theme, onToggleTheme }) {
           >
             <span aria-hidden="true">{isLight ? '☀️' : '🌙'}</span>
           </button>
-
-          <a
-            href="https://odre.opendatasoft.com/explore/dataset/prod-national-annuel-filiere/"
-            target="_blank"
-            rel="noreferrer"
-            className={`rounded border px-3 py-2 text-xs font-semibold text-[#22D3EE] transition ${
-              isLight
-                ? 'border-[#CBD5E1] bg-white hover:border-[#22D3EE] hover:bg-[#ECFEFF]'
-                : 'border-[#22D3EE]/40 bg-[#111827] hover:border-[#22D3EE] hover:bg-[#22D3EE]/10'
-            }`}
-          >
-            Données : ODRÉ / RTE
-          </a>
         </div>
       </div>
       <div className="h-[2px] w-full bg-[#22D3EE] animate-pulse-line" />
