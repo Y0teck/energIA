@@ -1,4 +1,4 @@
-# ÉnergIA ⚡
+﻿# ÉnergIA ⚡
 
 **Simulateur interactif de mix électrique français**
 
@@ -25,6 +25,7 @@ Le mix de référence affiché est le **Bilan électrique RTE 2025** — donnée
 | Outil | Rôle |
 |---|---|
 | React 18 + Vite | Framework frontend |
+| react-router-dom | Navigation multi-pages |
 | Tailwind CSS | Styling |
 | Recharts | Graphiques (camembert, jauges) |
 | Node.js (script one-shot) | Téléchargement des données ODRÉ |
@@ -88,37 +89,62 @@ npm run build
 ```
 energiA/
 ├── scripts/
-│   └── fetchODRE.mjs        # Script one-shot téléchargement données RTE
+│   └── fetchODRE.mjs              # Script one-shot téléchargement données RTE
 ├── src/
 │   ├── components/
 │   │   ├── Header.jsx
-│   │   ├── MixSliders.jsx   # 7 curseurs du mix énergétique
-│   │   ├── ResultGauges.jsx # 4 indicateurs d'impact
-│   │   ├── MixPieChart.jsx  # Camembert de composition
-│   │   ├── ReferenceBar.jsx # Bandeau mix RTE 2025
+│   │   ├── NavMenu.jsx            # Menu de navigation (piloté par routes.jsx)
+│   │   ├── MixSliders.jsx         # 7 curseurs du mix énergétique
+│   │   ├── PresetSelector.jsx     # Grille de sélection des pays
+│   │   ├── ResultGauges.jsx       # 5 indicateurs d'impact colorés
+│   │   ├── ComparatorPanel.jsx    # Comparaison côte à côte
+│   │   ├── MixPieChart.jsx        # Camembert de composition
+│   │   ├── ReferenceBar.jsx       # Bandeau mix RTE 2025
 │   │   └── Footer.jsx
+│   ├── pages/
+│   │   ├── SimulateurPage.jsx
+│   │   ├── ComparaisonPage.jsx
+│   │   └── SourcesPage.jsx
 │   ├── data/
-│   │   ├── energyData.js    # Constantes et coefficients par filière
-│   │   └── refMix.json      # Données ODRÉ/RTE (généré par fetchODRE.mjs)
+│   │   ├── energyData.js          # Constantes et coefficients par filière
+│   │   ├── countryPresets.js      # 10 pays — IEA WEO 2025
+│   │   └── refMix.json            # Données ODRÉ/RTE (généré par fetchODRE.mjs)
 │   ├── utils/
-│   │   └── calculations.js  # Fonctions de calcul des 4 indicateurs
+│   │   └── calculations.js        # Fonctions de calcul des indicateurs
+│   ├── routes.jsx                 # Config centralisée des routes
+│   ├── Layout.jsx                 # Shell : Header + NavMenu + Outlet
+│   ├── ThemeContext.js
 │   └── App.jsx
+├── ROADMAP.md                     # Suivi des fonctionnalités
 ```
 
 ---
 
 ## ⚙️ Fonctionnalités
 
-- [x] 7 curseurs de mix énergétique indépendants
-- [x] 4 indicateurs recalculés en temps réel
-- [x] Camembert interactif du mix
-- [x] Barre de référence RTE 2025 (données réelles)
-- [x] Bouton reset vers le mix de référence
+- [x] Navigation multi-pages extensible (React Router) : Simulateur, Comparaison pays, Sources
+- [x] 7 curseurs de mix énergétique indépendants avec indicateurs recalculés en temps réel
+- [x] 5 indicateurs d'impact colorés par seuil : CO₂, coût, stabilité réseau, renouvelables, bas-carbone
+- [x] Sélecteur de 10 pays préconfigurés (données IEA WEO 2025, historique 2023)
+- [x] Comparateur côte à côte entre deux pays avec différenciation des meilleures valeurs
+- [x] Camembert interactif du mix énergétique
+- [x] Barre de référence RTE 2025 (données réelles ODRÉ)
+- [x] Page Sources & méthodologie avec références complètes (IEA, IPCC AR6, IRENA, ODRÉ/RTE)
 - [x] Mode clair / mode sombre
-- [x] Responsive mobile
-- [ ] Modales explicatives par indicateur *(en cours)*
-- [ ] Comparaison avec d'autres pays
-- [ ] Mini-jeu avec objectifs et score
+- [x] Logo SVG custom + favicon
+- [ ] Auto-normalisation des sliders à 100%
+- [ ] Mode quiz/défi avec objectifs et score
+- [ ] Carte choroplèthe mondiale CO₂/kWh
+- [ ] Évolution temporelle du mix (slider historique)
+- [ ] URL partageable encodant le mix custom
+
+---
+
+## 🗺️ Roadmap
+
+Le fichier [`ROADMAP.md`](./ROADMAP.md) liste l'ensemble des fonctionnalités envisagées,
+organisées par catégorie (Simulateur, Comparaison, Mode pédagogique, Évolution temporelle,
+Partage & export) avec leur statut d'implémentation.
 
 ---
 
