@@ -1,19 +1,23 @@
 // Source donnees : resultats calcules depuis src/utils/calculations.js.
+
 function getCO2Color(value) {
   if (value <= 100) return 'text-[#10B981]'
   if (value <= 300) return 'text-[#F59E0B]'
   return 'text-[#EF4444]'
 }
+
 function getCostColor(value) {
   if (value <= 60) return 'text-[#10B981]'
   if (value <= 90) return 'text-[#F59E0B]'
   return 'text-[#EF4444]'
 }
+
 function getStabilityColor(value) {
   if (value >= 60) return 'text-[#10B981]'
   if (value >= 30) return 'text-[#F59E0B]'
   return 'text-[#EF4444]'
 }
+
 function getRenewablesColor(value) {
   if (value >= 40) return 'text-[#10B981]'
   if (value >= 20) return 'text-[#F59E0B]'
@@ -22,6 +26,7 @@ function getRenewablesColor(value) {
 
 function GaugeCard({ label, value, unit, colorClass, sublabel, theme }) {
   const isLight = theme === 'light'
+
   return (
     <article
       className={`rounded-xl p-5 transition-colors ${
@@ -35,6 +40,7 @@ function GaugeCard({ label, value, unit, colorClass, sublabel, theme }) {
       >
         {label}
       </p>
+
       <div className="mt-4 flex items-end gap-2">
         <span className={`font-mono text-4xl font-bold leading-none ${colorClass}`}>
           {value}
@@ -43,6 +49,10 @@ function GaugeCard({ label, value, unit, colorClass, sublabel, theme }) {
           {unit}
         </span>
       </div>
+
+      <p className={`mt-3 text-xs leading-relaxed ${isLight ? 'text-[#64748B]' : 'text-[#9CA3AF]'}`}>
+        {sublabel}
+      </p>
     </article>
   )
 }
@@ -55,6 +65,7 @@ export default function ResultGauges({ co2, cost, stability, renewables, theme }
         value={co2}
         unit="gCO₂eq/kWh"
         colorClass={getCO2Color(co2)}
+        sublabel="Moyenne pondérée cycle de vie (IPCC AR6)"
         theme={theme}
       />
       <GaugeCard
@@ -62,6 +73,7 @@ export default function ResultGauges({ co2, cost, stability, renewables, theme }
         value={cost}
         unit="€/MWh"
         colorClass={getCostColor(cost)}
+        sublabel="LCOE moyen pondéré (IRENA 2023, indicatif)"
         theme={theme}
       />
       <GaugeCard
@@ -69,6 +81,7 @@ export default function ResultGauges({ co2, cost, stability, renewables, theme }
         value={stability}
         unit="/100"
         colorClass={getStabilityColor(stability)}
+        sublabel="Part des sources pilotables (dispatchables)"
         theme={theme}
       />
       <GaugeCard
@@ -76,6 +89,7 @@ export default function ResultGauges({ co2, cost, stability, renewables, theme }
         value={renewables}
         unit="%"
         colorClass={getRenewablesColor(renewables)}
+        sublabel="Éolien + Solaire + Hydraulique + Bioénergies"
         theme={theme}
       />
     </section>
