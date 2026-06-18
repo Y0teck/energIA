@@ -93,14 +93,14 @@ Statuts : ✅ Fait · 🚧 En cours · 💡 À faire
 
 | Statut | Fonctionnalité |
 |--------|---------------|
-| 💡 | Page dédiée avec ressources classées par thème |
-| 💡 | GIEC / IPCC — rapports AR6, résumés pour décideurs |
-| 💡 | Carbone 4 / Jean-Marc Jancovici — articles, conférences |
-| 💡 | Electricity Maps — visualisation temps réel mondiale |
-| 💡 | RTE / ODRÉ — données françaises open data |
-| 💡 | IEA — World Energy Outlook, statistiques mondiales |
-| 💡 | Wikipedia — pages clés (mix énergétique, LCOE, facteur de charge…) |
-| 💡 | Livres recommandés (ex. "Le monde sans fin" — Jancovici & Blain) |
+| ✅ | Page dédiée avec ressources classées par thème |
+| ✅ | GIEC / IPCC — rapports AR6, résumés pour décideurs |
+| ✅ | Carbone 4 / Jean-Marc Jancovici — articles, conférences |
+| ✅ | Electricity Maps — visualisation temps réel mondiale |
+| ✅ | RTE / ODRÉ — données françaises open data |
+| ✅ | IEA — World Energy Outlook, statistiques mondiales |
+| ✅ | Wikipedia — pages clés (mix énergétique, LCOE, facteur de charge…) |
+| ✅ | Livres recommandés (ex. "Le monde sans fin" — Jancovici & Blain) |
 
 ---
 
