@@ -26,8 +26,9 @@ function MixTooltip({ active, payload }) {
   )
 }
 
-export default function MixPieChart({ mix, sources, refData, theme }) {
+export default function MixPieChart({ mix, sources, refData, theme, exportMode = false, showLegend = true }) {
   const isLight = theme === 'light'
+  const shouldShowLegend = exportMode ? false : showLegend
   const referenceTotal = Number.isFinite(refData?.total) ? refData.total : null
   const data = Object.values(sources).map((source) => ({
     id: source.id,
@@ -54,17 +55,19 @@ export default function MixPieChart({ mix, sources, refData, theme }) {
         Composition du mix
       </h2>
 
-      <ResponsiveContainer width="100%" height={280}>
-        <PieChart>
+      {exportMode ? (
+        <PieChart width={620} height={360}>
           <Pie
             data={data}
             dataKey="value"
             nameKey="name"
             cx="50%"
-            cy="45%"
-            outerRadius="68%"
+            cy="47%"
+            outerRadius={130}
             label={renderLabel}
             labelLine={false}
+            stroke="#ffffff"
+            strokeWidth={1}
             isAnimationActive={true}
           >
             {data.map((entry) => (
@@ -74,19 +77,59 @@ export default function MixPieChart({ mix, sources, refData, theme }) {
 
           <Tooltip content={<MixTooltip />} cursor={false} />
 
-          <Legend
-            layout="horizontal"
-            verticalAlign="bottom"
-            align="center"
-            iconType="circle"
-            formatter={(_, entry) => entry.payload.legendName}
-            wrapperStyle={{
-              color: isLight ? '#475569' : '#9CA3AF',
-              fontSize: '12px',
-            }}
-          />
+          {shouldShowLegend ? (
+            <Legend
+              layout="horizontal"
+              verticalAlign="bottom"
+              align="center"
+              iconType="circle"
+              formatter={(_, entry) => entry.payload.legendName}
+              wrapperStyle={{
+                color: isLight ? '#475569' : '#9CA3AF',
+                fontSize: '12px',
+              }}
+            />
+          ) : null}
         </PieChart>
-      </ResponsiveContainer>
+      ) : (
+        <ResponsiveContainer width="100%" height={280}>
+          <PieChart>
+            <Pie
+              data={data}
+              dataKey="value"
+              nameKey="name"
+              cx="50%"
+              cy="45%"
+              outerRadius="68%"
+              label={renderLabel}
+              labelLine={false}
+              stroke="#ffffff"
+              strokeWidth={1}
+              isAnimationActive={true}
+            >
+              {data.map((entry) => (
+                <Cell key={entry.id} fill={entry.color} />
+              ))}
+            </Pie>
+
+            <Tooltip content={<MixTooltip />} cursor={false} />
+
+            {shouldShowLegend ? (
+              <Legend
+                layout="horizontal"
+                verticalAlign="bottom"
+                align="center"
+                iconType="circle"
+                formatter={(_, entry) => entry.payload.legendName}
+                wrapperStyle={{
+                  color: isLight ? '#475569' : '#9CA3AF',
+                  fontSize: '12px',
+                }}
+              />
+            ) : null}
+          </PieChart>
+        </ResponsiveContainer>
+      )}
     </section>
   )
 }

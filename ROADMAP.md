@@ -43,6 +43,7 @@ Statuts : ✅ Fait · 🚧 En cours · 💡 À faire
 | ✅ | État par défaut : France à gauche, aucun pays à droite |
 | ✅ | Pays déjà sélectionné de l'autre côté grisé |
 | 💡 | Carte choroplèthe mondiale colorée par CO₂/kWh |
+| 💡 | Carte du monde interactive — survol : tooltip (nom + chiffres clés) · clic : popup flottante avec détail du mix (données statiques/typiques, lib envisagée : react-simple-maps) |
 | 💡 | Ajout de pays supplémentaires (UK, Japon, Australie…) |
 
 ---
@@ -85,7 +86,7 @@ Statuts : ✅ Fait · 🚧 En cours · 💡 À faire
 | Statut | Fonctionnalité |
 |--------|---------------|
 | ✅ | URL partageable encodant le mix custom (query params) |
-| 💡 | Export PNG du résumé indicateurs |
+| ✅ | Export PNG du résumé indicateurs |
 | 💡 | Sauvegarde de scénarios nommés en localStorage |
 
 ---

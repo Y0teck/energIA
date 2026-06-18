@@ -207,7 +207,7 @@ function getLowCarbonColor(value) {
   return 'text-[#EF4444]'
 }
 
-function GaugeCard({ label, value, unit, colorClass, sublabel, indicator, theme, onInfoClick }) {
+function GaugeCard({ label, value, unit, colorClass, sublabel, indicator, theme, onInfoClick, exportMode = false }) {
   const isLight = theme === 'light'
 
   return (
@@ -216,18 +216,20 @@ function GaugeCard({ label, value, unit, colorClass, sublabel, indicator, theme,
         isLight ? 'border border-[#E2E8F0] bg-white' : 'bg-[#111827]'
       }`}
     >
-      <button
-        type="button"
-        onClick={() => onInfoClick(indicator)}
-        aria-label={`Afficher les détails : ${label}`}
-        className={`absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full border text-xs font-bold opacity-0 transition-all group-hover:opacity-100 ${
-          isLight
-            ? 'border-[#CBD5E1] text-[#64748B] hover:border-[#22D3EE] hover:text-[#22D3EE]'
-            : 'border-[#374151] text-[#6B7280] hover:border-[#22D3EE] hover:text-[#22D3EE]'
-        }`}
-      >
-        i
-      </button>
+      {!exportMode ? (
+        <button
+          type="button"
+          onClick={() => onInfoClick(indicator)}
+          aria-label={`Afficher les détails : ${label}`}
+          className={`absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full border text-xs font-bold opacity-0 transition-all group-hover:opacity-100 ${
+            isLight
+              ? 'border-[#CBD5E1] text-[#64748B] hover:border-[#22D3EE] hover:text-[#22D3EE]'
+              : 'border-[#374151] text-[#6B7280] hover:border-[#22D3EE] hover:text-[#22D3EE]'
+          }`}
+        >
+          i
+        </button>
+      ) : null}
 
       <p
         className={`pr-8 text-xs font-semibold uppercase tracking-normal ${
@@ -253,12 +255,13 @@ function GaugeCard({ label, value, unit, colorClass, sublabel, indicator, theme,
   )
 }
 
-function ParisAccordBanner({ co2, theme }) {
+export function ParisAccordBanner({ co2, theme, exportMode = false }) {
   const [modalOpen, setModalOpen] = useState(false)
   const isLight = theme === 'light'
   const isSuccess = co2 <= 50
   const delta = co2 - 50
   const borderColor = isSuccess ? 'border-[#10B981]' : co2 <= 200 ? 'border-[#F59E0B]' : 'border-[#EF4444]'
+  const borderHex = isSuccess ? '#10B981' : co2 <= 200 ? '#F59E0B' : '#EF4444'
   const accentColor = isSuccess ? 'text-[#10B981]' : co2 <= 200 ? 'text-[#F59E0B]' : 'text-[#EF4444]'
   const mutedText = isLight ? 'text-[#475569]' : 'text-[#D1D5DB]'
 
@@ -274,26 +277,47 @@ function ParisAccordBanner({ co2, theme }) {
               ? 'bg-[#FEF3C7]'
               : 'bg-[#7C2D12]'
         }`}
+        style={
+          exportMode
+            ? {
+                backgroundColor: isSuccess ? '#065F46' : '#7C2D12',
+                border: `1px solid ${borderHex}`,
+              }
+            : undefined
+        }
       >
-        <button
-          type="button"
-          onClick={() => setModalOpen(true)}
-          aria-label="Afficher les détails : Accord de Paris"
-          className={`absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full border text-xs font-bold opacity-0 transition-all group-hover:opacity-100 ${
-            isLight
-              ? 'border-[#CBD5E1] text-[#64748B] hover:border-[#22D3EE] hover:text-[#22D3EE]'
-              : 'border-[#374151] text-[#D1D5DB] hover:border-[#22D3EE] hover:text-[#22D3EE]'
-          }`}
-        >
-          i
-        </button>
+        {!exportMode ? (
+          <button
+            type="button"
+            onClick={() => setModalOpen(true)}
+            aria-label="Afficher les détails : Accord de Paris"
+            className={`absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full border text-xs font-bold opacity-0 transition-all group-hover:opacity-100 ${
+              isLight
+                ? 'border-[#CBD5E1] text-[#64748B] hover:border-[#22D3EE] hover:text-[#22D3EE]'
+                : 'border-[#374151] text-[#D1D5DB] hover:border-[#22D3EE] hover:text-[#22D3EE]'
+            }`}
+          >
+            i
+          </button>
+        ) : null}
 
         <div className="flex items-center gap-4">
           <span
             className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border font-mono text-lg font-bold ${borderColor} ${accentColor}`}
             aria-hidden="true"
+            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minWidth: '2rem', minHeight: '2rem' }}
           >
-            {isSuccess ? '✓' : '⚠'}
+            {isSuccess ? (
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 10L8.5 14.5L16 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            ) : (
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 2L18.5 17H1.5L10 2Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round"/>
+                <path d="M10 8V11.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+                <circle cx="10" cy="14.5" r="0.8" fill="currentColor"/>
+              </svg>
+            )}
           </span>
 
           <div>
@@ -312,14 +336,27 @@ function ParisAccordBanner({ co2, theme }) {
 
         {!isSuccess ? (
           <span
-            className={`shrink-0 rounded-full border px-3 py-1 font-mono text-sm font-bold ${borderColor} ${accentColor}`}
+            className={`shrink-0 ${accentColor}`}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              whiteSpace: 'nowrap',
+              padding: '2px 10px',
+              borderRadius: '9999px',
+              border: '1px solid currentColor',
+              fontSize: '0.75rem',
+              fontWeight: '700',
+              fontFamily: 'monospace',
+              lineHeight: '1.5',
+            }}
           >
             ×{(co2 / 50).toFixed(1)}
           </span>
         ) : null}
       </aside>
 
-      {modalOpen && (
+      {modalOpen && !exportMode && (
         <IndicatorModal
           indicator={PARIS_ACCORD_CONTENT}
           theme={theme}
@@ -330,7 +367,7 @@ function ParisAccordBanner({ co2, theme }) {
   )
 }
 
-export default function ResultGauges({ co2, cost, stability, renewables, lowCarbon, theme }) {
+export default function ResultGauges({ co2, cost, stability, renewables, lowCarbon, theme, exportMode = false }) {
   const [openIndicator, setOpenIndicator] = useState(null)
 
   return (
@@ -345,6 +382,7 @@ export default function ResultGauges({ co2, cost, stability, renewables, lowCarb
           indicator={INDICATOR_CONTENT.co2}
           theme={theme}
           onInfoClick={setOpenIndicator}
+          exportMode={exportMode}
         />
         <GaugeCard
           label="Coût de production"
@@ -355,6 +393,7 @@ export default function ResultGauges({ co2, cost, stability, renewables, lowCarb
           indicator={INDICATOR_CONTENT.cost}
           theme={theme}
           onInfoClick={setOpenIndicator}
+          exportMode={exportMode}
         />
         <GaugeCard
           label="Stabilité réseau"
@@ -365,6 +404,7 @@ export default function ResultGauges({ co2, cost, stability, renewables, lowCarb
           indicator={INDICATOR_CONTENT.stability}
           theme={theme}
           onInfoClick={setOpenIndicator}
+          exportMode={exportMode}
         />
         <GaugeCard
           label="Énergies renouvelables"
@@ -375,6 +415,7 @@ export default function ResultGauges({ co2, cost, stability, renewables, lowCarb
           indicator={INDICATOR_CONTENT.renewables}
           theme={theme}
           onInfoClick={setOpenIndicator}
+          exportMode={exportMode}
         />
         <GaugeCard
           label="Énergie bas-carbone"
@@ -385,12 +426,13 @@ export default function ResultGauges({ co2, cost, stability, renewables, lowCarb
           indicator={INDICATOR_CONTENT.lowCarbon}
           theme={theme}
           onInfoClick={setOpenIndicator}
+          exportMode={exportMode}
         />
       </section>
 
-      <ParisAccordBanner co2={co2} theme={theme} />
+      {!exportMode ? <ParisAccordBanner co2={co2} theme={theme} /> : null}
 
-      {openIndicator ? (
+      {openIndicator && !exportMode ? (
         <IndicatorModal
           indicator={openIndicator}
           theme={theme}

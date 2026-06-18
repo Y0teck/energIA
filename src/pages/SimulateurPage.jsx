@@ -1,9 +1,10 @@
 // Source donnees : mix de reference ODRE / RTE et coefficients indicatifs.
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
+import html2canvas from 'html2canvas'
 import MixSliders from '../components/MixSliders'
-import ResultGauges from '../components/ResultGauges'
+import ResultGauges, { ParisAccordBanner } from '../components/ResultGauges'
 import MixPieChart from '../components/MixPieChart'
 import Footer from '../components/Footer'
 import PresetSelector from '../components/PresetSelector'
@@ -47,18 +48,170 @@ function getMixFromSearchParams(searchParams) {
   return total === 100 ? urlMix : null
 }
 
-function getMixSearchParams(mix) {
-  return MIX_KEYS.reduce((params, key) => {
-    params[key] = String(mix[key])
-    return params
+function getPresetIdFromSearchParams(searchParams) {
+  const presetId = searchParams.get('preset')
+  const preset = COUNTRY_PRESETS.find((countryPreset) => countryPreset.id === presetId)
+
+  return preset ? preset.id : null
+}
+
+function getMixSearchParams(mix, activePresetId) {
+  const params = MIX_KEYS.reduce((nextParams, key) => {
+    nextParams[key] = String(mix[key])
+    return nextParams
   }, {})
+
+  if (activePresetId) {
+    params.preset = activePresetId
+  }
+
+  return params
+}
+
+function searchParamsMatchMix(searchParams, mix, activePresetId) {
+  const mixMatches = MIX_KEYS.every((key) => searchParams.get(key) === String(mix[key]))
+  const presetMatches = activePresetId
+    ? searchParams.get('preset') === activePresetId
+    : !searchParams.has('preset')
+
+  return mixMatches && presetMatches
+}
+
+function ShareBar({ exportRef, isLight }) {
+  const [captureState, setCaptureState] = useState('idle')
+  const [shareCopied, setShareCopied] = useState(false)
+
+  const defaultButtonClass = isLight
+    ? 'border-[#CBD5E1] text-[#64748B] hover:border-[#22D3EE] hover:text-[#22D3EE]'
+    : 'border-[#374151] text-[#9CA3AF] hover:border-[#22D3EE] hover:text-[#22D3EE]'
+
+  function showCaptureSuccess() {
+    setCaptureState('success')
+    window.setTimeout(() => setCaptureState('idle'), 2000)
+  }
+
+  function showShareCopied() {
+    setShareCopied(true)
+    window.setTimeout(() => setShareCopied(false), 2000)
+  }
+
+  async function exportPng() {
+    if (!exportRef.current || captureState === 'loading') return
+
+    setCaptureState('loading')
+
+    try {
+      const canvas = await html2canvas(exportRef.current, {
+        backgroundColor: '#0B1120',
+        scale: 2,
+        useCORS: true,
+        logging: false,
+      })
+
+      canvas.toBlob((blob) => {
+        if (!blob) {
+          setCaptureState('idle')
+          return
+        }
+
+        const url = URL.createObjectURL(blob)
+        const link = document.createElement('a')
+        link.href = url
+        link.download = 'energIA-mix.png'
+        link.click()
+        URL.revokeObjectURL(url)
+        showCaptureSuccess()
+      }, 'image/png')
+    } catch {
+      setCaptureState('idle')
+    }
+  }
+
+  async function shareMix() {
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: 'ÉnergIA — Mon mix électrique',
+          text: "Découvrez l'impact de ce mix énergétique sur le CO₂, le coût et la stabilité du réseau.",
+          url: window.location.href,
+        })
+        return
+      }
+
+      await navigator.clipboard.writeText(window.location.href)
+      showShareCopied()
+    } catch {
+      // User cancellation or clipboard refusal leaves the UI unchanged.
+    }
+  }
+
+  return (
+    <div className="flex flex-wrap items-center gap-2">
+      <button
+        type="button"
+        onClick={exportPng}
+        disabled={captureState === 'loading'}
+        className={`flex items-center gap-1.5 rounded-lg border bg-transparent px-3 py-1.5 text-xs font-semibold transition-colors ${
+          captureState === 'success' ? 'border-[#10B981] text-[#10B981]' : defaultButtonClass
+        }`}
+      >
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M12 3v12" />
+          <path d="m7 10 5 5 5-5" />
+          <path d="M5 21h14" />
+        </svg>
+        {captureState === 'loading'
+          ? 'Capture…'
+          : captureState === 'success'
+            ? '✓ Téléchargé'
+            : 'Exporter PNG'}
+      </button>
+
+      <button
+        type="button"
+        onClick={shareMix}
+        className={`flex items-center gap-1.5 rounded-lg border bg-transparent px-3 py-1.5 text-xs font-semibold transition-colors ${
+          shareCopied ? 'border-[#10B981] text-[#10B981]' : defaultButtonClass
+        }`}
+      >
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <circle cx="18" cy="5" r="3" />
+          <circle cx="6" cy="12" r="3" />
+          <circle cx="18" cy="19" r="3" />
+          <path d="m8.59 13.51 6.83 3.98" />
+          <path d="m15.41 6.51-6.82 3.98" />
+        </svg>
+        {shareCopied ? '✓ Lien copié !' : 'Partager'}
+      </button>
+    </div>
+  )
 }
 
 export default function SimulateurPage() {
   const [searchParams, setSearchParams] = useSearchParams()
   const [mix, setMix] = useState(() => getMixFromSearchParams(searchParams) ?? REF_MIX)
-  const [activePresetId, setActivePresetId] = useState(null)
-  const [copied, setCopied] = useState(false)
+  const [activePresetId, setActivePresetId] = useState(() => getPresetIdFromSearchParams(searchParams))
+  const exportRef = useRef(null)
   const theme = useTheme()
   const isLight = theme === 'light'
 
@@ -69,21 +222,13 @@ export default function SimulateurPage() {
   const lowCarbon = mix.nucleaire + renewables
   const activePreset = COUNTRY_PRESETS.find((preset) => preset.id === activePresetId)
   const activePresetLabel = activePreset ? activePreset.label : null
+  const exportMixLabel = activePresetLabel ? `Mix énergétique de ${activePresetLabel}` : 'Mix personnalisé'
 
   useEffect(() => {
-    const urlAlreadyMatchesMix = MIX_KEYS.every((key) => searchParams.get(key) === String(mix[key]))
-
-    if (!urlAlreadyMatchesMix) {
-      setSearchParams(getMixSearchParams(mix), { replace: true })
+    if (!searchParamsMatchMix(searchParams, mix, activePresetId)) {
+      setSearchParams(getMixSearchParams(mix, activePresetId), { replace: true })
     }
-  }, [mix, searchParams, setSearchParams])
-
-  function copyShareLink() {
-    navigator.clipboard.writeText(window.location.href).then(() => {
-      setCopied(true)
-      window.setTimeout(() => setCopied(false), 2000)
-    })
-  }
+  }, [mix, activePresetId, searchParams, setSearchParams])
 
   return (
     <>
@@ -99,35 +244,6 @@ export default function SimulateurPage() {
             disabledId={null}
             theme={theme}
           />
-          <div className="flex justify-end">
-            <button
-              type="button"
-              onClick={copyShareLink}
-              className={`inline-flex items-center gap-2 rounded-lg border px-3 py-1 text-xs font-semibold transition-colors ${
-                copied
-                  ? 'border-[#10B981] text-[#10B981]'
-                  : isLight
-                    ? 'border-[#CBD5E1] text-[#64748B] hover:border-[#22D3EE] hover:text-[#0891B2]'
-                    : 'border-[#374151] text-[#9CA3AF] hover:border-[#22D3EE] hover:text-[#22D3EE]'
-              }`}
-            >
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-              </svg>
-              {copied ? '✓ Lien copié !' : 'Copier le lien'}
-            </button>
-          </div>
           <MixSliders
             mix={mix}
             onChange={(newMix) => {
@@ -137,17 +253,20 @@ export default function SimulateurPage() {
             presetLabel={activePresetLabel}
             theme={theme}
           />
+          <ShareBar exportRef={exportRef} isLight={isLight} />
         </div>
 
         <div className="space-y-8">
-          <ResultGauges
-            co2={co2}
-            cost={cost}
-            stability={stability}
-            renewables={renewables}
-            lowCarbon={lowCarbon}
-            theme={theme}
-          />
+          <div className="space-y-3">
+            <ResultGauges
+              co2={co2}
+              cost={cost}
+              stability={stability}
+              renewables={renewables}
+              lowCarbon={lowCarbon}
+              theme={theme}
+            />
+          </div>
           <MixPieChart
             mix={mix}
             sources={ENERGY_SOURCES}
@@ -155,6 +274,52 @@ export default function SimulateurPage() {
             theme={theme}
           />
         </div>
+      </div>
+
+      <div
+        ref={exportRef}
+        className="fixed -left-[9999px] top-0 w-[680px]"
+        style={{ backgroundColor: '#0B1120', padding: '24px' }}
+      >
+        <div className="mb-5 flex items-center justify-between gap-6">
+          <svg width="180" height="48" viewBox="0 0 180 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="24" cy="24" r="17" stroke="#00D9FF" strokeWidth="3"/>
+            <path d="M27 7C34.5 8.5 40 15.3 40 23.5C40 32.6 32.6 40 23.5 40C15.7 40 9.1 34.6 7.4 27.3" stroke="#38F2B2" strokeWidth="3" strokeLinecap="round"/>
+            <path d="M26.8 13L16 25.2H24L21.2 35L32 22.8H24L26.8 13Z" fill="#FFB000"/>
+            <text x="52" y="31" fontFamily="Inter, system-ui, sans-serif" fontSize="25" fontWeight="800" letterSpacing="0.5" fill="#00D9FF">ÉnergIA</text>
+          </svg>
+          <p className="text-right text-sm font-semibold text-[#F9FAFB]">{exportMixLabel}</p>
+        </div>
+
+        <div className="mb-5" style={{ width: '640px', height: '380px', marginBottom: '16px' }}>
+          <MixPieChart
+            mix={mix}
+            sources={ENERGY_SOURCES}
+            refData={refMix}
+            theme="dark"
+            exportMode={true}
+          />
+        </div>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px 16px', padding: '0 8px 16px', marginTop: '-8px' }}>
+          {Object.values(ENERGY_SOURCES).map((source) => (
+            <div key={source.id} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: source.color, flexShrink: 0 }} />
+              <span style={{ fontSize: '12px', color: '#9CA3AF' }}>{source.label}</span>
+            </div>
+          ))}
+        </div>
+
+        <ResultGauges
+          co2={co2}
+          cost={cost}
+          stability={stability}
+          renewables={renewables}
+          lowCarbon={lowCarbon}
+          theme="dark"
+          exportMode={true}
+        />
+
+        <ParisAccordBanner co2={co2} theme="dark" exportMode={true} />
       </div>
 
       <Footer theme={theme} />
