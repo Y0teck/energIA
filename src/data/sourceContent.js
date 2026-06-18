@@ -8,11 +8,19 @@ export const SOURCE_CONTENT = {
     loadFactor: '~75 %',
     description:
       "Produit de l'électricité par fission de l'uranium. Pilotable et très bas-carbone, c'est la principale source de décarbonation du mix français.",
+    descriptionEn:
+      'Produces electricity through uranium fission. Dispatchable and very low-carbon, it is the main decarbonisation source in the French electricity mix.',
     advantages: [
       'Très faibles émissions CO₂ sur cycle de vie (12 gCO₂eq/kWh)',
       'Pilotable : production ajustable à la demande',
       'Forte densité énergétique — faible emprise au sol',
       'Production stable et prévisible sur le long terme',
+    ],
+    advantagesEn: [
+      'Very low lifecycle CO₂ emissions (12 gCO₂eq/kWh)',
+      'Dispatchable: output adjustable on demand',
+      'High energy density — small land footprint',
+      'Stable and predictable output over the long term',
     ],
     limits: [
       'Déchets radioactifs à stocker sur des millénaires',
@@ -20,11 +28,23 @@ export const SOURCE_CONTENT = {
       'Sensible aux vagues de chaleur (refroidissement des rivières)',
       'Risque perçu élevé malgré un bilan de sécurité favorable',
     ],
+    limitsEn: [
+      'Radioactive waste requiring storage for millennia',
+      'High construction costs and timelines (10–15 years)',
+      'Sensitive to heatwaves (river cooling constraints)',
+      'High perceived risk despite a favourable safety record',
+    ],
     keyFigures: [
       { label: 'CO₂ cycle de vie (IPCC AR6)', value: '12 gCO₂eq/kWh' },
       { label: 'LCOE (IRENA 2023)', value: '~70 €/MWh' },
       { label: 'Facteur de charge', value: '~75 %' },
       { label: 'Part dans le mix France (2025)', value: '~70 %' },
+    ],
+    keyFiguresEn: [
+      { label: 'Lifecycle CO₂ (IPCC AR6)', value: '12 gCO₂eq/kWh' },
+      { label: 'LCOE (IRENA 2023)', value: '~70 €/MWh' },
+      { label: 'Capacity factor', value: '~75 %' },
+      { label: 'Share in France mix (2025)', value: '~70 %' },
     ],
   },
   eolien: {
@@ -36,11 +56,19 @@ export const SOURCE_CONTENT = {
     loadFactor: '25–45 %',
     description:
       "Convertit l'énergie cinétique du vent en électricité. Terrestre ou offshore, c'est la filière renouvelable la plus déployée mondialement.",
+    descriptionEn:
+      'Converts wind kinetic energy into electricity. Onshore or offshore, it is the most widely deployed renewable technology worldwide.',
     advantages: [
       'Émissions CO₂ parmi les plus basses (11 gCO₂eq/kWh)',
       'Coût compétitif et en baisse continue',
       'Déploiement rapide (2–3 ans par parc)',
       "Complémentaire au solaire (vent plus fort l'hiver et la nuit)",
+    ],
+    advantagesEn: [
+      'Among the lowest CO₂ emissions (11 gCO₂eq/kWh)',
+      'Competitive and continuously falling cost',
+      'Fast deployment (2–3 years per wind farm)',
+      'Complementary to solar (stronger wind in winter and at night)',
     ],
     limits: [
       'Intermittent — dépend de la météo',
@@ -48,11 +76,23 @@ export const SOURCE_CONTENT = {
       'Nécessite des capacités de backup ou de stockage',
       'Offshore plus coûteux mais facteur de charge supérieur (~45 %)',
     ],
+    limitsEn: [
+      'Intermittent — depends on weather conditions',
+      'Visual and noise impact on local residents',
+      'Requires backup capacity or storage',
+      'Offshore more expensive but higher capacity factor (~45%)',
+    ],
     keyFigures: [
       { label: 'CO₂ cycle de vie (IPCC AR6)', value: '11 gCO₂eq/kWh' },
       { label: 'LCOE terrestre (IRENA 2023)', value: '~50 €/MWh' },
       { label: 'Facteur de charge terrestre', value: '~25–35 %' },
       { label: 'Facteur de charge offshore', value: '~40–45 %' },
+    ],
+    keyFiguresEn: [
+      { label: 'Lifecycle CO₂ (IPCC AR6)', value: '11 gCO₂eq/kWh' },
+      { label: 'Onshore LCOE (IRENA 2023)', value: '~50 €/MWh' },
+      { label: 'Onshore capacity factor', value: '~25–35 %' },
+      { label: 'Offshore capacity factor', value: '~40–45 %' },
     ],
   },
   solaire: {
@@ -64,11 +104,19 @@ export const SOURCE_CONTENT = {
     loadFactor: '~12–15 % (France)',
     description:
       "Convertit le rayonnement solaire en électricité via des panneaux photovoltaïques. La filière dont le coût a le plus baissé ces 15 ans (−90 % depuis 2010).",
+    descriptionEn:
+      'Converts solar radiation into electricity via photovoltaic panels. The technology whose cost has fallen most over the past 15 years (−90% since 2010).',
     advantages: [
       'LCOE parmi les plus bas mondialement',
       'Modulaire — du panneau résidentiel à la ferme solaire',
       'Sans bruit, sans émissions locales',
       'Durée de vie > 30 ans avec peu de maintenance',
+    ],
+    advantagesEn: [
+      'Among the lowest LCOE globally',
+      'Modular — from rooftop panels to utility-scale farms',
+      'Silent, no local emissions',
+      'Lifespan > 30 years with minimal maintenance',
     ],
     limits: [
       'Intermittent — nul la nuit, faible en hiver',
@@ -76,11 +124,23 @@ export const SOURCE_CONTENT = {
       'Nécessite stockage ou backup pour la soirée/nuit',
       'Utilisation de terres agricoles pour les grandes fermes',
     ],
+    limitsEn: [
+      'Intermittent — zero output at night, low in winter',
+      'Low capacity factor in France (~12%) vs sunnier countries',
+      'Requires storage or backup for evenings and nights',
+      'Large solar farms compete with agricultural land use',
+    ],
     keyFigures: [
       { label: 'CO₂ cycle de vie (IPCC AR6)', value: '45 gCO₂eq/kWh' },
       { label: 'LCOE (IRENA 2023)', value: '~45 €/MWh' },
       { label: 'Facteur de charge France', value: '~12–15 %' },
       { label: 'Baisse du coût depuis 2010', value: '−90 %' },
+    ],
+    keyFiguresEn: [
+      { label: 'Lifecycle CO₂ (IPCC AR6)', value: '45 gCO₂eq/kWh' },
+      { label: 'LCOE (IRENA 2023)', value: '~45 €/MWh' },
+      { label: 'Capacity factor (France)', value: '~12–15 %' },
+      { label: 'Cost reduction since 2010', value: '−90 %' },
     ],
   },
   hydraulique: {
@@ -92,11 +152,19 @@ export const SOURCE_CONTENT = {
     loadFactor: '~35–45 %',
     description:
       "Exploite l'énergie potentielle de l'eau. Seule source renouvelable pilotable à grande échelle, l'hydraulique joue un rôle clé dans l'équilibre du réseau.",
+    descriptionEn:
+      'Harnesses the potential energy of water. The only large-scale dispatchable renewable, hydro plays a key role in grid balancing.',
     advantages: [
       'Pilotable et modulable en quelques secondes',
       'LCOE très bas sur la durée de vie (installations amorties)',
       'STEP : stockage d\'électricité à grande échelle ("batteries géantes")',
       'Très longue durée de vie des ouvrages (50–100 ans)',
+    ],
+    advantagesEn: [
+      'Dispatchable and adjustable within seconds',
+      'Very low LCOE over lifetime (amortised infrastructure)',
+      'Pumped storage (PSH): large-scale electricity storage ("giant batteries")',
+      'Very long asset lifespan (50–100 years)',
     ],
     limits: [
       'Ressources géographiques limitées — sites déjà largement exploités en France',
@@ -104,11 +172,23 @@ export const SOURCE_CONTENT = {
       'Sensible à la sécheresse (production en baisse avec le changement climatique)',
       'Construction coûteuse et complexe',
     ],
+    limitsEn: [
+      'Limited geographical resources — most sites already developed in France',
+      'Impact on aquatic ecosystems and fish migration',
+      'Sensitive to drought (output declining with climate change)',
+      'Costly and complex construction',
+    ],
     keyFigures: [
       { label: 'CO₂ cycle de vie (IPCC AR6)', value: '24 gCO₂eq/kWh' },
       { label: 'LCOE (IRENA 2023)', value: '~40 €/MWh' },
       { label: 'Facteur de charge', value: '~35–45 %' },
       { label: 'Part dans le mix France (2025)', value: '~12 %' },
+    ],
+    keyFiguresEn: [
+      { label: 'Lifecycle CO₂ (IPCC AR6)', value: '24 gCO₂eq/kWh' },
+      { label: 'LCOE (IRENA 2023)', value: '~40 €/MWh' },
+      { label: 'Capacity factor', value: '~35–45 %' },
+      { label: 'Share in France mix (2025)', value: '~12 %' },
     ],
   },
   gaz: {
@@ -120,11 +200,19 @@ export const SOURCE_CONTENT = {
     loadFactor: 'Variable (backup)',
     description:
       "Centrale à cycle combiné gaz (CCGT) ou turbine à combustion. Très utilisé comme source de backup pour compenser l'intermittence des renouvelables.",
+    descriptionEn:
+      'Combined cycle gas turbine (CCGT) or open-cycle turbine. Widely used as backup to balance renewable intermittency.',
     advantages: [
       'Pilotable avec démarrage rapide (minutes)',
       'Infrastructure de transport existante (réseaux gaziers)',
       'Émissions deux fois moindres que le charbon',
       'Indispensable comme backup dans les mix à forte part de renouvelables',
+    ],
+    advantagesEn: [
+      'Dispatchable with fast start-up (minutes)',
+      'Existing transport infrastructure (gas networks)',
+      'Emissions roughly half those of coal',
+      'Essential backup in high-renewables mixes',
     ],
     limits: [
       'Émissions CO₂ élevées (490 gCO₂eq/kWh)',
@@ -132,11 +220,23 @@ export const SOURCE_CONTENT = {
       'Incompatible avec les objectifs climatiques à long terme',
       "Risques géopolitiques liés à l'approvisionnement",
     ],
+    limitsEn: [
+      'High CO₂ emissions (490 gCO₂eq/kWh)',
+      'Volatile gas price dependent on imports',
+      'Incompatible with long-term climate targets',
+      'Geopolitical supply risks',
+    ],
     keyFigures: [
       { label: 'CO₂ cycle de vie (IPCC AR6)', value: '490 gCO₂eq/kWh' },
       { label: 'LCOE (IRENA 2023)', value: '~100 €/MWh' },
       { label: 'Émissions vs charbon', value: '~2× moins' },
       { label: 'Délai de démarrage', value: 'Quelques minutes' },
+    ],
+    keyFiguresEn: [
+      { label: 'Lifecycle CO₂ (IPCC AR6)', value: '490 gCO₂eq/kWh' },
+      { label: 'LCOE (IRENA 2023)', value: '~100 €/MWh' },
+      { label: 'Emissions vs coal', value: '~2× moins' },
+      { label: 'Start-up time', value: 'Quelques minutes' },
     ],
   },
   charbon: {
@@ -148,10 +248,17 @@ export const SOURCE_CONTENT = {
     loadFactor: '~50–70 %',
     description:
       "Centrales à charbon ou fioul. La source la plus émettrice de CO₂ par kWh produit, en cours d'élimination progressive dans l'UE d'ici 2030–2038.",
+    descriptionEn:
+      'Coal and oil-fired power plants. The most carbon-intensive electricity source, being phased out across the EU by 2030–2038.',
     advantages: [
       'Énergie abondante et stockable (charbon)',
       'Infrastructure existante dans de nombreux pays',
       'Pilotable et relativement stable',
+    ],
+    advantagesEn: [
+      'Abundant and storable fuel (coal)',
+      'Existing infrastructure in many countries',
+      'Dispatchable and relatively stable output',
     ],
     limits: [
       'Plus forte intensité carbone : 820 gCO₂eq/kWh',
@@ -159,11 +266,23 @@ export const SOURCE_CONTENT = {
       'Incompatible avec les objectifs Accord de Paris',
       "Phase-out programmé dans l'UE d'ici 2030–2038",
     ],
+    limitsEn: [
+      'Highest carbon intensity: 820 gCO₂eq/kWh',
+      'Local air pollution: NOx, SOx, fine particles',
+      'Incompatible with Paris Agreement targets',
+      'EU phase-out planned by 2030–2038',
+    ],
     keyFigures: [
       { label: 'CO₂ cycle de vie (IPCC AR6)', value: '820 gCO₂eq/kWh' },
       { label: 'LCOE (IRENA 2023)', value: '~80 €/MWh' },
       { label: 'Intensité vs mix France', value: '~24× plus élevé' },
       { label: 'Phase-out UE', value: '2030–2038' },
+    ],
+    keyFiguresEn: [
+      { label: 'Lifecycle CO₂ (IPCC AR6)', value: '820 gCO₂eq/kWh' },
+      { label: 'LCOE (IRENA 2023)', value: '~80 €/MWh' },
+      { label: 'Intensity vs France mix', value: '~24× plus élevé' },
+      { label: 'EU phase-out', value: '2030–2038' },
     ],
   },
   bioenergies: {
@@ -175,11 +294,19 @@ export const SOURCE_CONTENT = {
     loadFactor: '~60–80 %',
     description:
       "Production d'électricité à partir de biomasse (bois, résidus agricoles), biogaz ou déchets. Pilotable et renouvelable, mais avec des enjeux de durabilité.",
+    descriptionEn:
+      'Electricity from biomass (wood, agricultural residues), biogas, or waste. Dispatchable and renewable, but with sustainability challenges.',
     advantages: [
       'Pilotable — production ajustable comme une centrale thermique',
       'Valorise les déchets agricoles, forestiers et ménagers',
       'Renouvelable si la biomasse est gérée durablement',
       'Peut être couplé à CCS (BECCS) pour du CO₂ négatif',
+    ],
+    advantagesEn: [
+      'Dispatchable — output adjustable like a thermal plant',
+      'Valorises agricultural, forestry, and household waste',
+      'Renewable if biomass is sustainably managed',
+      'Can be coupled with CCS (BECCS) for negative CO₂',
     ],
     limits: [
       "Coefficient CO₂ élevé si la biomasse n'est pas locale et durable",
@@ -187,11 +314,23 @@ export const SOURCE_CONTENT = {
       'Surface nécessaire importante pour une production significative',
       'Durabilité des filières très variable selon les pratiques',
     ],
+    limitsEn: [
+      'High CO₂ coefficient if biomass is not local and sustainable',
+      'Potential competition with food production and forestry',
+      'Large land area needed for significant output',
+      'Sustainability of supply chains varies widely by practice',
+    ],
     keyFigures: [
       { label: 'CO₂ cycle de vie (IPCC AR6)', value: '230 gCO₂eq/kWh' },
       { label: 'LCOE (IRENA 2023)', value: '~90 €/MWh' },
       { label: 'Facteur de charge', value: '~60–80 %' },
       { label: 'Part dans le mix France (2025)', value: '~2 %' },
+    ],
+    keyFiguresEn: [
+      { label: 'Lifecycle CO₂ (IPCC AR6)', value: '230 gCO₂eq/kWh' },
+      { label: 'LCOE (IRENA 2023)', value: '~90 €/MWh' },
+      { label: 'Capacity factor', value: '~60–80 %' },
+      { label: 'Share in France mix (2025)', value: '~2 %' },
     ],
   },
 }

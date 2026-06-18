@@ -18,6 +18,8 @@ export default function NavMenu() {
             end={route.path === '/'}
             className={({ isActive }) =>
               `flex h-11 items-center border-b-2 text-sm no-underline transition ${
+                route.navRight ? 'ml-auto' : ''
+              } ${
                 isActive
                   ? 'border-[#22D3EE] font-semibold text-[#22D3EE]'
                   : `border-transparent ${

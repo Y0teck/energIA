@@ -9,6 +9,7 @@ export const STRINGS = {
       challenges: 'Défis',
       sources: 'Sources',
       goFurther: 'Aller plus loin',
+      glossaire: 'Glossaire',
     },
     header: {
       subtitle: "Explorez l'impact de chaque source d'énergie sur le climat, le coût et la stabilité du réseau.",
@@ -63,6 +64,16 @@ export const STRINGS = {
       section1: 'Comprendre',
       section2: 'Explorer les données',
       section3: 'Approfondir',
+    },
+    glossairePage: {
+      title: 'Glossaire',
+      searchPlaceholder: 'Rechercher un terme…',
+      filterAll: 'Tous',
+      filterTech: 'Technique',
+      filterConcept: 'Concepts',
+      filterSource: 'Sources',
+      noResults: 'Aucun résultat.',
+      sourceProfileNote: '→ Voir la fiche complète',
     },
     quiz: {
       title: 'Défis',
@@ -125,6 +136,7 @@ export const STRINGS = {
       challenges: 'Challenges',
       sources: 'Sources',
       goFurther: 'Go further',
+      glossaire: 'Glossary',
     },
     header: {
       subtitle: 'Explore the impact of each energy source on climate, cost, and grid stability.',
@@ -179,6 +191,16 @@ export const STRINGS = {
       section1: 'Understand',
       section2: 'Explore data',
       section3: 'Dive deeper',
+    },
+    glossairePage: {
+      title: 'Glossary',
+      searchPlaceholder: 'Search a term…',
+      filterAll: 'All',
+      filterTech: 'Technical',
+      filterConcept: 'Concepts',
+      filterSource: 'Sources',
+      noResults: 'No results.',
+      sourceProfileNote: '→ See full profile',
     },
     quiz: {
       title: 'Challenges',

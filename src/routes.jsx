@@ -3,11 +3,13 @@ import ComparaisonPage from './pages/ComparaisonPage'
 import SourcesPage from './pages/SourcesPage'
 import AllerPlusLoinPage from './pages/AllerPlusLoinPage'
 import QuizPage from './pages/QuizPage'
+import GlossairePage from './pages/GlossairePage'
 
 export const ROUTES = [
   { path: '/', key: 'simulator', element: <SimulateurPage /> },
   { path: '/comparaison', key: 'comparison', element: <ComparaisonPage /> },
   { path: '/quiz', key: 'challenges', element: <QuizPage /> },
-  { path: '/sources', key: 'sources', element: <SourcesPage /> },
+  { path: '/glossaire', aliases: ['/glossary'], key: 'glossaire', element: <GlossairePage /> },
   { path: '/aller-plus-loin', key: 'goFurther', element: <AllerPlusLoinPage /> },
+  { path: '/sources', key: 'sources', element: <SourcesPage />, navRight: true },
 ]

@@ -9,6 +9,11 @@ export default function App() {
         {ROUTES.map((route) => (
           <Route key={route.path} path={route.path} element={route.element} />
         ))}
+        {ROUTES.flatMap((route) =>
+          (route.aliases ?? []).map((alias) => (
+            <Route key={alias} path={alias} element={route.element} />
+          )),
+        )}
       </Route>
     </Routes>
   )

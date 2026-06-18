@@ -1,11 +1,18 @@
+import { useContext } from 'react'
+import { LanguageContext } from '../LanguageContext'
 import { useStrings } from '../i18n/useStrings'
 
 export default function SourceModal({ source, theme, onClose }) {
   const isLight = theme === 'light'
   const s = useStrings()
+  const { lang } = useContext(LanguageContext)
   const mutedText = isLight ? 'text-[#64748B]' : 'text-[#9CA3AF]'
   const borderColor = isLight ? 'border-[#E2E8F0]' : 'border-[#1F2937]'
   const bodyText = isLight ? 'text-[#334155]' : 'text-[#D1D5DB]'
+  const description = lang === 'en' && source.descriptionEn ? source.descriptionEn : source.description
+  const advantages = lang === 'en' && source.advantagesEn ? source.advantagesEn : source.advantages
+  const limits = lang === 'en' && source.limitsEn ? source.limitsEn : source.limits
+  const keyFigures = lang === 'en' && source.keyFiguresEn ? source.keyFiguresEn : source.keyFigures
 
   return (
     <div
@@ -53,7 +60,7 @@ export default function SourceModal({ source, theme, onClose }) {
             <h3 className={`text-xs font-semibold uppercase tracking-wider ${mutedText}`}>
               Description
             </h3>
-            <p className={`mt-2 text-sm leading-relaxed ${bodyText}`}>{source.description}</p>
+            <p className={`mt-2 text-sm leading-relaxed ${bodyText}`}>{description}</p>
           </section>
 
           <section>
@@ -61,7 +68,7 @@ export default function SourceModal({ source, theme, onClose }) {
               {s.sourceModal.keyFigures}
             </h3>
             <dl className={`mt-2 divide-y rounded-lg border ${borderColor}`}>
-              {source.keyFigures.map((figure) => (
+              {keyFigures.map((figure) => (
                 <div key={figure.label} className="grid grid-cols-2 gap-3 px-3 py-2 text-sm">
                   <dt className={mutedText}>{figure.label}</dt>
                   <dd className="text-right font-mono font-semibold">{figure.value}</dd>
@@ -75,7 +82,7 @@ export default function SourceModal({ source, theme, onClose }) {
               {s.sourceModal.advantages}
             </h3>
             <ul className="mt-2 space-y-2 text-sm">
-              {source.advantages.map((advantage) => (
+              {advantages.map((advantage) => (
                 <li key={advantage} className={`flex gap-2 leading-relaxed ${bodyText}`}>
                   <span className="font-bold text-[#10B981]" aria-hidden="true">
                     ✓
@@ -91,7 +98,7 @@ export default function SourceModal({ source, theme, onClose }) {
               {s.sourceModal.limits}
             </h3>
             <ul className="mt-2 space-y-2 text-sm">
-              {source.limits.map((limit) => (
+              {limits.map((limit) => (
                 <li key={limit} className={`flex gap-2 leading-relaxed ${bodyText}`}>
                   <span className="font-bold text-[#EF4444]" aria-hidden="true">
                     ✗
