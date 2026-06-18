@@ -1,9 +1,21 @@
+import { useContext, useEffect, useState } from 'react'
 import { COUNTRY_PRESETS } from '../data/countryPresets'
+import { LanguageContext } from '../LanguageContext'
 import { useStrings } from '../i18n/useStrings'
 
 export default function PresetSelector({ onSelect, theme, activeId = null, disabledId = null }) {
   const isLight = theme === 'light'
   const s = useStrings()
+  const { lang } = useContext(LanguageContext)
+  const [expanded, setExpanded] = useState(false)
+  const activeIndex = COUNTRY_PRESETS.findIndex((preset) => preset.id === activeId)
+  const visiblePresets = expanded ? COUNTRY_PRESETS : COUNTRY_PRESETS.slice(0, 10)
+
+  useEffect(() => {
+    if (activeIndex >= 10) {
+      setExpanded(true)
+    }
+  }, [activeIndex])
 
   function selectPreset(preset) {
     onSelect(preset.mix)
@@ -18,7 +30,7 @@ export default function PresetSelector({ onSelect, theme, activeId = null, disab
       }`}
     >
       <div className="grid grid-cols-5 gap-2">
-        {COUNTRY_PRESETS.map((preset) => {
+        {visiblePresets.map((preset) => {
           const isActive = preset.id === activeId
           const isDisabled = preset.id === disabledId
 
@@ -54,6 +66,16 @@ export default function PresetSelector({ onSelect, theme, activeId = null, disab
           )
         })}
       </div>
+
+      <button
+        type="button"
+        onClick={() => setExpanded((current) => !current)}
+        className="mx-auto mt-2 flex items-center gap-1 text-sm text-neutral-500 transition-colors hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-white"
+      >
+        {expanded
+          ? (lang === 'fr' ? 'Réduire ▴' : 'Collapse ▴')
+          : (lang === 'fr' ? 'Voir tous les pays ▾' : 'Show all countries ▾')}
+      </button>
     </section>
   )
 }
