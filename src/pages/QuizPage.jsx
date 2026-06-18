@@ -360,8 +360,8 @@ export default function QuizPage() {
 
   async function shareChallenge() {
     const shareData = {
-      title: `ÉnergIA — ${getChallengeTitle(activeChallenge, lang)}`,
-      text: 'J’ai relevé un défi ÉnergIA avec ce mix électrique.',
+      title: `GridSense — ${getChallengeTitle(activeChallenge, lang)}`,
+      text: 'J’ai relevé un défi GridSense avec ce mix électrique.',
       url: window.location.href,
     }
 

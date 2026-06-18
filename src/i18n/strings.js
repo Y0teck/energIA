@@ -1,4 +1,4 @@
-// ÉnergIA — Centralized UI strings (FR / EN)
+// GridSense — Centralized UI strings (FR / EN)
 // Usage: import { useStrings } from '../i18n/useStrings'
 
 export const STRINGS = {
@@ -10,11 +10,12 @@ export const STRINGS = {
       sources: 'Sources',
       goFurther: 'Aller plus loin',
       glossaire: 'Glossaire',
+      scenarios: 'Scénarios GIEC',
       carte: 'Carte',
       energies: 'Énergies',
     },
     header: {
-      subtitle: "Explorez l'impact de chaque source d'énergie sur le climat, le coût et la stabilité du réseau.",
+      subtitle: "See the energy, feel the impact.",
     },
     sliders: {
       title: 'Mix énergétique',
@@ -76,6 +77,15 @@ export const STRINGS = {
       filterSource: 'Sources',
       noResults: 'Aucun résultat.',
       sourceProfileNote: '→ Voir la fiche complète',
+    },
+    scenariosPage: {
+      title: 'Scénarios du GIEC',
+      subtitle: "Quelles trajectoires pour le système électrique mondial d'ici 2050 ?",
+      chartTitle: 'Trajectoire CO₂ du secteur électrique (gCO₂eq/kWh)',
+      simulate: 'Simuler ce mix →',
+      co2By2050: 'gCO₂eq/kWh en 2050',
+      implications: 'Implications',
+      source: 'Source : IPCC AR6 WG3 (2022) · IEA Net Zero 2050',
     },
     cartePage: {
       title: 'Carte mondiale',
@@ -187,16 +197,17 @@ export const STRINGS = {
   en: {
     nav: {
       simulator: 'Simulator',
-      comparison: 'Country comparison',
+      comparison: 'Country Comparison',
       challenges: 'Challenges',
       sources: 'Sources',
       goFurther: 'Go further',
       glossaire: 'Glossary',
+      scenarios: 'IPCC Scenarios',
       carte: 'Map',
       energies: 'Energies',
     },
     header: {
-      subtitle: 'Explore the impact of each energy source on climate, cost, and grid stability.',
+      subtitle: 'See the energy, feel the impact.',
     },
     sliders: {
       title: 'Energy mix',
@@ -258,6 +269,15 @@ export const STRINGS = {
       filterSource: 'Sources',
       noResults: 'No results.',
       sourceProfileNote: '→ See full profile',
+    },
+    scenariosPage: {
+      title: 'IPCC Scenarios',
+      subtitle: 'What pathways for the global electricity system by 2050?',
+      chartTitle: 'Electricity sector CO₂ trajectory (gCO₂eq/kWh)',
+      simulate: 'Simulate this mix →',
+      co2By2050: 'gCO₂eq/kWh by 2050',
+      implications: 'Implications',
+      source: 'Source: IPCC AR6 WG3 (2022) · IEA Net Zero 2050',
     },
     cartePage: {
       title: 'World Map',

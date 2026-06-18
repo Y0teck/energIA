@@ -83,6 +83,10 @@ const RAW_SOURCES = [
     },
     url: null,
   },
+  {
+    name: 'IPCC AR6 WG3 — Atténuation du changement climatique',
+    url: 'https://www.ipcc.ch/report/ar6/wg3/',
+  },
 ]
 
 const SOURCES_FR = [
@@ -95,7 +99,7 @@ const SOURCES_FR = [
   {
     title: 'Mix électrique — données pays (monde)',
     description:
-      "Données de production électrique 2023 par source et par pays, pour les 40 pays hors France intégrés dans ÉnergIA. Couvre l'Europe, les Amériques, l'Asie, l'Afrique et l'Océanie.",
+      "Données de production électrique 2023 par source et par pays, pour les 40 pays hors France intégrés dans GridSense. Couvre l'Europe, les Amériques, l'Asie, l'Afrique et l'Océanie.",
     source: RAW_SOURCES[1],
   },
   {
@@ -107,7 +111,7 @@ const SOURCES_FR = [
   {
     title: 'Kenya — revue énergétique',
     description:
-      "Données spécifiques au Kenya pour préciser son mix électrique, notamment la place de la géothermie agrégée dans les bioénergies faute de catégorie dédiée dans ÉnergIA.",
+      "Données spécifiques au Kenya pour préciser son mix électrique, notamment la place de la géothermie agrégée dans les bioénergies faute de catégorie dédiée dans GridSense.",
     source: RAW_SOURCES[3],
   },
   {
@@ -125,13 +129,13 @@ const SOURCES_FR = [
   {
     title: 'Objectif climatique — Accord de Paris',
     description:
-      "Le secteur électrique doit atteindre une intensité carbone inférieure à 50 gCO₂eq/kWh d'ici 2030–2035 pour rester sur une trajectoire compatible avec un réchauffement limité à 1,5°C. Valeur utilisée comme seuil de référence dans l'indicateur Accord de Paris d'ÉnergIA.",
+      "Le secteur électrique doit atteindre une intensité carbone inférieure à 50 gCO₂eq/kWh d'ici 2030–2035 pour rester sur une trajectoire compatible avec un réchauffement limité à 1,5°C. Valeur utilisée comme seuil de référence dans l'indicateur Accord de Paris de GridSense.",
     source: RAW_SOURCES[6],
   },
   {
     title: 'Accord de Paris — texte officiel',
     description:
-      "Accord international signé par 196 parties visant à limiter le réchauffement climatique à 1,5–2°C. Fixe le cadre des engagements nationaux de réduction des émissions (NDC) auquel se réfère l'indicateur Accord de Paris d'ÉnergIA.",
+      "Accord international signé par 196 parties visant à limiter le réchauffement climatique à 1,5–2°C. Fixe le cadre des engagements nationaux de réduction des émissions (NDC) auquel se réfère l'indicateur Accord de Paris de GridSense.",
     source: RAW_SOURCES[7],
   },
   {
@@ -200,6 +204,12 @@ const SOURCES_FR = [
       "Données mondiales sur l'impact sanitaire de la pollution atmosphérique, en particulier liée à la combustion du charbon (PM2.5, NOx, SO₂).",
     source: RAW_SOURCES[17],
   },
+  {
+    title: 'IPCC AR6 WG3 — Atténuation du changement climatique',
+    description:
+      "Rapport du groupe III du GIEC (2022) : trajectoires d'émissions, scénarios SSP, rôle du secteur électrique dans la décarbonation. Base scientifique de référence pour les objectifs climatiques mondiaux.",
+    source: RAW_SOURCES[19],
+  },
 ]
 
 const SOURCES_EN = [
@@ -212,7 +222,7 @@ const SOURCES_EN = [
   {
     title: 'Electricity mix — country data (world)',
     description:
-      'Electricity generation data for 2023 by source and country, for the 40 non-France countries in ÉnergIA. Covers Europe, the Americas, Asia, Africa, and Oceania.',
+      'Electricity generation data for 2023 by source and country, for the 40 non-France countries in GridSense. Covers Europe, the Americas, Asia, Africa, and Oceania.',
     source: RAW_SOURCES[1],
   },
   {
@@ -224,7 +234,7 @@ const SOURCES_EN = [
   {
     title: 'Kenya — energy review',
     description:
-      'Kenya-specific electricity data used to refine its mix, including geothermal generation aggregated into bioenergy because ÉnergIA has no dedicated geothermal category.',
+      'Kenya-specific electricity data used to refine its mix, including geothermal generation aggregated into bioenergy because GridSense has no dedicated geothermal category.',
     source: RAW_SOURCES[3],
   },
   {
@@ -242,13 +252,13 @@ const SOURCES_EN = [
   {
     title: 'Climate Target — Paris Agreement',
     description:
-      "The electricity sector must reach a carbon intensity below 50 gCO₂eq/kWh by 2030–2035 to stay on a 1.5°C pathway. Value used as reference threshold in ÉnergIA's Paris Agreement indicator.",
+      "The electricity sector must reach a carbon intensity below 50 gCO₂eq/kWh by 2030–2035 to stay on a 1.5°C pathway. Value used as reference threshold in GridSense's Paris Agreement indicator.",
     source: RAW_SOURCES[6],
   },
   {
     title: 'Paris Agreement — Official Text',
     description:
-      "International agreement signed by 196 parties aiming to limit global warming to 1.5–2°C. Sets the framework for national emission reduction commitments (NDCs) referenced in ÉnergIA's Paris Agreement indicator.",
+      "International agreement signed by 196 parties aiming to limit global warming to 1.5–2°C. Sets the framework for national emission reduction commitments (NDCs) referenced in GridSense's Paris Agreement indicator.",
     source: RAW_SOURCES[7],
   },
   {
@@ -316,6 +326,12 @@ const SOURCES_EN = [
     description:
       'Global data on the health impact of air pollution, particularly from coal combustion (PM2.5, NOx, SO₂).',
     source: RAW_SOURCES[17],
+  },
+  {
+    title: 'IPCC AR6 WG3 — Climate Change Mitigation',
+    description:
+      'IPCC Working Group III report (2022): emissions pathways, SSP scenarios, and the role of the electricity sector in decarbonisation. The scientific reference for global climate targets.',
+    source: RAW_SOURCES[19],
   },
 ]
 

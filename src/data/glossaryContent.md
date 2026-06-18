@@ -1,4 +1,4 @@
-# Glossaire ÉnergIA — contenu FR/EN
+# Glossaire GridSense — contenu FR/EN
 
 Données pour `src/pages/GlossairePage.jsx`. Chaque terme a : id, termFr, termEn, definitionFr, definitionEn, category.
 
@@ -32,15 +32,15 @@ Categories : "technique" | "concept" | "source"
 ### co2eq
 - **termFr:** CO₂eq (équivalent CO₂)
 - **termEn:** CO₂eq (CO₂ equivalent)
-- **definitionFr:** Le CO₂ équivalent (CO₂eq) est une unité qui exprime l'impact climatique de tous les gaz à effet de serre (CO₂, méthane, protoxyde d'azote…) en équivalent CO₂, en tenant compte de leur pouvoir de réchauffement respectif. Dans ÉnergIA, l'intensité carbone est exprimée en gCO₂eq/kWh — la masse de CO₂ équivalent émise pour produire un kilowattheure d'électricité.
-- **definitionEn:** CO₂ equivalent (CO₂eq) is a unit expressing the climate impact of all greenhouse gases (CO₂, methane, nitrous oxide…) in CO₂ terms, weighted by their global warming potential. In ÉnergIA, carbon intensity is expressed in gCO₂eq/kWh — the mass of CO₂ equivalent emitted to produce one kilowatt-hour of electricity.
+- **definitionFr:** Le CO₂ équivalent (CO₂eq) est une unité qui exprime l'impact climatique de tous les gaz à effet de serre (CO₂, méthane, protoxyde d'azote…) en équivalent CO₂, en tenant compte de leur pouvoir de réchauffement respectif. Dans GridSense, l'intensité carbone est exprimée en gCO₂eq/kWh — la masse de CO₂ équivalent émise pour produire un kilowattheure d'électricité.
+- **definitionEn:** CO₂ equivalent (CO₂eq) is a unit expressing the climate impact of all greenhouse gases (CO₂, methane, nitrous oxide…) in CO₂ terms, weighted by their global warming potential. In GridSense, carbon intensity is expressed in gCO₂eq/kWh — the mass of CO₂ equivalent emitted to produce one kilowatt-hour of electricity.
 - **category:** technique
 
 ### acv
 - **termFr:** Analyse du cycle de vie (ACV)
 - **termEn:** Life cycle assessment (LCA)
-- **definitionFr:** L'analyse du cycle de vie (ACV) comptabilise toutes les émissions de gaz à effet de serre d'une filière énergétique, de l'extraction des matières premières jusqu'au démantèlement, en passant par la construction et l'exploitation. Les coefficients CO₂ d'ÉnergIA sont des médianes issues du rapport AR6 du GIEC, calculées en cycle de vie complet.
-- **definitionEn:** Life cycle assessment (LCA) accounts for all greenhouse gas emissions of an energy technology, from raw material extraction to decommissioning, including construction and operation. ÉnergIA's CO₂ coefficients are medians from the IPCC AR6 report, calculated on a full life cycle basis.
+- **definitionFr:** L'analyse du cycle de vie (ACV) comptabilise toutes les émissions de gaz à effet de serre d'une filière énergétique, de l'extraction des matières premières jusqu'au démantèlement, en passant par la construction et l'exploitation. Les coefficients CO₂ de GridSense sont des médianes issues du rapport AR6 du GIEC, calculées en cycle de vie complet.
+- **definitionEn:** Life cycle assessment (LCA) accounts for all greenhouse gas emissions of an energy technology, from raw material extraction to decommissioning, including construction and operation. GridSense's CO₂ coefficients are medians from the IPCC AR6 report, calculated on a full life cycle basis.
 - **category:** technique
 
 ### intensite-carbone
@@ -75,6 +75,20 @@ Categories : "technique" | "concept" | "source"
 - **definitionEn:** Carbon neutrality (or net zero) is achieved when residual greenhouse gas emissions are offset by equivalent absorptions (forests, carbon capture…). The Paris Agreement targets global carbon neutrality by 2050. For the electricity sector, this implies near-complete decarbonisation by 2035 in developed countries.
 - **category:** concept
 
+### giec
+- **termFr:** GIEC (Groupe d'experts intergouvernemental sur l'évolution du climat)
+- **termEn:** IPCC (Intergovernmental Panel on Climate Change)
+- **definitionFr:** Le GIEC est l'organe scientifique intergouvernemental de l'ONU chargé d'évaluer les connaissances sur le changement climatique. Il réunit des milliers de scientifiques du monde entier et publie des rapports de synthèse tous les 6–7 ans. Le 6e rapport d'évaluation (AR6, 2021–2022) est la référence scientifique mondiale sur le climat. Le GIEC ne fait pas de recommandations politiques : il évalue les faits, les risques et les trajectoires possibles. Les scénarios SSP (Shared Socioeconomic Pathways) sont au cœur de son analyse.
+- **definitionEn:** The IPCC is the UN's intergovernmental scientific body responsible for assessing knowledge on climate change. It brings together thousands of scientists worldwide and publishes assessment reports every 6–7 years. The 6th Assessment Report (AR6, 2021–2022) is the global scientific reference on climate. The IPCC does not make policy recommendations: it assesses facts, risks, and possible pathways. SSP scenarios (Shared Socioeconomic Pathways) are central to its analysis.
+- **category:** concept
+
+### ssp
+- **termFr:** SSP — Scénarios climatiques (Shared Socioeconomic Pathways)
+- **termEn:** SSP — Climate scenarios (Shared Socioeconomic Pathways)
+- **definitionFr:** Les SSP (Trajectoires socio-économiques partagées) sont les scénarios de référence du GIEC AR6. Ils décrivent différents futurs possibles selon les politiques climatiques adoptées. SSP1-1.9 vise +1,5°C (décarbonation rapide), SSP1-2.6 vise +2°C, SSP2-4.5 est la trajectoire intermédiaire (~+2,7°C correspondant aux politiques actuelles), SSP5-8.5 est le scénario haute émission (+4,4°C). L'intensité carbone du secteur électrique compatible avec chaque scénario varie de 10 gCO₂eq/kWh (SSP1-1.9) à 700 gCO₂eq/kWh (SSP5-8.5) en 2050.
+- **definitionEn:** SSPs (Shared Socioeconomic Pathways) are the IPCC AR6 reference scenarios. They describe different possible futures depending on climate policies adopted. SSP1-1.9 targets +1.5°C (rapid decarbonisation), SSP1-2.6 targets +2°C, SSP2-4.5 is the intermediate pathway (~+2.7°C matching current policies), SSP5-8.5 is the high-emission scenario (+4.4°C). The electricity sector carbon intensity compatible with each scenario ranges from 10 gCO₂eq/kWh (SSP1-1.9) to 700 gCO₂eq/kWh (SSP5-8.5) by 2050.
+- **category:** concept
+
 ### accord-de-paris
 - **termFr:** Accord de Paris
 - **termEn:** Paris Agreement
@@ -85,8 +99,8 @@ Categories : "technique" | "concept" | "source"
 ### bas-carbone
 - **termFr:** Énergie bas-carbone
 - **termEn:** Low-carbon energy
-- **definitionFr:** Une source d'énergie est dite bas-carbone lorsque ses émissions en cycle de vie sont faibles, généralement inférieures à 100 gCO₂eq/kWh. Dans ÉnergIA, l'indicateur "Énergie bas-carbone" regroupe le nucléaire et toutes les énergies renouvelables. Le nucléaire (~12 gCO₂eq/kWh) et l'hydraulique (~24 gCO₂eq/kWh) sont parmi les sources les plus bas-carbone.
-- **definitionEn:** An energy source is low-carbon when its lifecycle emissions are low, generally below 100 gCO₂eq/kWh. In ÉnergIA, the "Low-carbon energy" indicator groups nuclear and all renewable energies. Nuclear (~12 gCO₂eq/kWh) and hydro (~24 gCO₂eq/kWh) are among the lowest-carbon sources.
+- **definitionFr:** Une source d'énergie est dite bas-carbone lorsque ses émissions en cycle de vie sont faibles, généralement inférieures à 100 gCO₂eq/kWh. Dans GridSense, l'indicateur "Énergie bas-carbone" regroupe le nucléaire et toutes les énergies renouvelables. Le nucléaire (~12 gCO₂eq/kWh) et l'hydraulique (~24 gCO₂eq/kWh) sont parmi les sources les plus bas-carbone.
+- **definitionEn:** An energy source is low-carbon when its lifecycle emissions are low, generally below 100 gCO₂eq/kWh. In GridSense, the "Low-carbon energy" indicator groups nuclear and all renewable energies. Nuclear (~12 gCO₂eq/kWh) and hydro (~24 gCO₂eq/kWh) are among the lowest-carbon sources.
 - **category:** concept
 
 ---

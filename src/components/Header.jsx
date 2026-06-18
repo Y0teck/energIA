@@ -14,11 +14,11 @@ export default function Header({ theme, onToggleTheme }) {
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-6">
         <div>
           <h1 className="leading-none">
-            <svg width="180" height="48" viewBox="0 0 180 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="ÉnergIA">
+            <svg width="180" height="48" viewBox="0 0 180 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="GridSense">
               <circle cx="24" cy="24" r="17" stroke="#00D9FF" strokeWidth="3"/>
               <path d="M27 7C34.5 8.5 40 15.3 40 23.5C40 32.6 32.6 40 23.5 40C15.7 40 9.1 34.6 7.4 27.3" stroke="#38F2B2" strokeWidth="3" strokeLinecap="round"/>
               <path d="M26.8 13L16 25.2H24L21.2 35L32 22.8H24L26.8 13Z" fill="#FFB000"/>
-              <text x="52" y="31" fontFamily="Inter, system-ui, sans-serif" fontSize="25" fontWeight="800" letterSpacing="0.5" fill="#00D9FF">ÉnergIA</text>
+              <text x="52" y="31" fontFamily="Inter, system-ui, sans-serif" fontSize="25" fontWeight="800" letterSpacing="0.5" fill="#00D9FF">GridSense</text>
             </svg>
           </h1>
           <p className={`mt-1 text-sm ${isLight ? 'text-[#475569]' : 'text-[#9CA3AF]'}`}>

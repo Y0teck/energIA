@@ -9,8 +9,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg'],
       manifest: {
-        name: 'ÉnergIA',
-        short_name: 'ÉnergIA',
+        name: 'GridSense',
+        short_name: 'GridSense',
         description: 'Simulateur interactif de mix électrique',
         theme_color: '#0A0F1E',
         background_color: '#0A0F1E',

@@ -21,6 +21,21 @@ export default function PresetSelector({ onSelect, theme, activeId = null, disab
     onSelect(preset.mix)
   }
 
+  function getButtonClass(isActive, isDisabled) {
+    if (isActive) return 'border-[#22D3EE] bg-[#22D3EE]/10 text-[#22D3EE]'
+    if (isDisabled) {
+      return `cursor-not-allowed opacity-40 ${
+        isLight
+          ? 'border-[#E2E8F0] text-[#475569]'
+          : 'border-[#1F2937] text-[#9CA3AF]'
+      }`
+    }
+
+    return isLight
+      ? 'border-[#E2E8F0] text-[#475569] hover:border-[#22D3EE] hover:text-[#0891B2]'
+      : 'border-[#1F2937] text-[#9CA3AF] hover:border-[#22D3EE] hover:text-[#22D3EE]'
+  }
+
   return (
     <section
       className={`rounded-xl border transition-colors ${
@@ -42,19 +57,10 @@ export default function PresetSelector({ onSelect, theme, activeId = null, disab
               onClick={() => {
                 if (!isDisabled) selectPreset(preset)
               }}
-              className={`flex min-w-0 flex-col items-center gap-1 rounded border px-2 py-3 transition ${
-                isActive
-                  ? 'border-[#22D3EE] bg-[#22D3EE]/10 text-[#22D3EE]'
-                  : isDisabled
-                    ? `cursor-not-allowed opacity-40 ${
-                        isLight
-                          ? 'border-[#E2E8F0] text-[#475569]'
-                          : 'border-[#1F2937] text-[#9CA3AF]'
-                      }`
-                  : isLight
-                    ? 'border-[#E2E8F0] text-[#475569] hover:border-[#22D3EE] hover:text-[#0891B2]'
-                    : 'border-[#1F2937] text-[#9CA3AF] hover:border-[#22D3EE] hover:text-[#22D3EE]'
-              }`}
+              className={`flex min-w-0 flex-col items-center gap-1 rounded border px-2 py-3 transition ${getButtonClass(
+                isActive,
+                isDisabled,
+              )}`}
             >
               <span aria-hidden="true" style={{ fontSize: '1.5rem' }}>
                 {preset.flag}

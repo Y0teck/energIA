@@ -1,4 +1,4 @@
-# Quiz Challenges — Mode Défi ÉnergIA
+# Quiz Challenges — Mode Défi GridSense
 
 Données pour `src/pages/QuizPage.jsx`. Chaque défi a : id, title, difficulty, description, startMix, objectives[].
 

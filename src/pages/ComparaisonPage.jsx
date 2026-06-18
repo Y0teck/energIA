@@ -36,10 +36,10 @@ export default function ComparaisonPage() {
   const presetA = COUNTRY_PRESETS.find((preset) => preset.id === presetIdA)
   const presetB = presetIdB ? COUNTRY_PRESETS.find((preset) => preset.id === presetIdB) : null
 
-  const mixA = presetA.mix
-  const mixB = presetB ? presetB.mix : null
+  const mixA = presetA?.mix
+  const mixB = presetB?.mix ?? null
 
-  const labelA = s.countries[presetA.id] ?? presetA.label
+  const labelA = s.countries[presetA?.id] ?? presetA?.label
   const labelB = presetB ? (s.countries[presetB.id] ?? presetB.label) : '—'
 
   const indicatorsA = getIndicators(mixA)

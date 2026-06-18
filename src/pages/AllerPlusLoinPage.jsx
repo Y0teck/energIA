@@ -71,42 +71,42 @@ const SECTION_DEFINITIONS = [
 
 const DESCRIPTIONS_FR = [
   [
-    "Le rapport de référence mondial sur l'atténuation du changement climatique. Contient les coefficients CO₂ utilisés dans ÉnergIA.",
+    "Le rapport de référence mondial sur l'atténuation du changement climatique. Contient les coefficients CO₂ utilisés dans GridSense.",
     "Think-tank sur la décarbonation de l'économie. Articles, rapports et conférences accessibles au grand public.",
     'Introduction complète aux enjeux énergie-climat en 2h. Point de départ recommandé.',
     'Cabinet de conseil spécialisé en stratégie bas-carbone. Publications et outils de référence.',
   ],
   [
     "Carte mondiale du mix électrique et de l'intensité carbone en temps réel.",
-    "Production électrique française par filière, en temps réel. Source des données France d'ÉnergIA.",
-    "Rapport annuel de référence sur les tendances mondiales de l'énergie. Source des données pays d'ÉnergIA.",
+    "Production électrique française par filière, en temps réel. Source des données France de GridSense.",
+    "Rapport annuel de référence sur les tendances mondiales de l'énergie. Source des données pays de GridSense.",
     'Analyse annuelle du mix électrique européen par filière.',
   ],
   [
     'BD qui explique les liens entre énergie, économie et climat. Accessible et très complet.',
     "Vue d'ensemble du concept de mix énergétique.",
-    "Définition et méthode de calcul du LCOE utilisé dans ÉnergIA.",
+    "Définition et méthode de calcul du LCOE utilisé dans GridSense.",
     'Explication du facteur de charge par filière (nucléaire ~75%, solaire ~12%…).',
   ],
 ]
 
 const DESCRIPTIONS_EN = [
   [
-    "The world's leading reference report on climate change mitigation. Contains the CO₂ coefficients used in ÉnergIA.",
+    "The world's leading reference report on climate change mitigation. Contains the CO₂ coefficients used in GridSense.",
     'Think-tank on decarbonising the economy. Articles, reports and conferences accessible to the general public.',
     'A complete 2-hour introduction to energy-climate issues. Recommended starting point.',
     'Consulting firm specialising in low-carbon strategy. Reference publications and tools.',
   ],
   [
     'World map of the electricity mix and carbon intensity in real time.',
-    "French electricity production by source, in real time. Source of ÉnergIA's France data.",
-    "Annual reference report on global energy trends. Source of ÉnergIA's country data.",
+    "French electricity production by source, in real time. Source of GridSense's France data.",
+    "Annual reference report on global energy trends. Source of GridSense's country data.",
     'Annual analysis of the European electricity mix by source.',
   ],
   [
     'A graphic novel explaining the links between energy, economy and climate. Accessible and very comprehensive.',
     'Overview of the energy mix concept.',
-    'Definition and calculation method of the LCOE used in ÉnergIA.',
+    'Definition and calculation method of the LCOE used in GridSense.',
     'Explanation of capacity factor by source (nuclear ~75%, solar ~12%…).',
   ],
 ]

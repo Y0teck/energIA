@@ -7,7 +7,7 @@ import { LanguageProvider } from './LanguageContext'
 
 export default function Layout() {
   const [theme, setTheme] = useState(() => {
-    const savedTheme = window.localStorage.getItem('energia-theme')
+    const savedTheme = window.localStorage.getItem('gridsense-theme')
     return savedTheme === 'light' || savedTheme === 'dark' ? savedTheme : 'dark'
   })
   const isLight = theme === 'light'
@@ -15,7 +15,7 @@ export default function Layout() {
   function toggleTheme() {
     setTheme((currentTheme) => {
       const nextTheme = currentTheme === 'dark' ? 'light' : 'dark'
-      window.localStorage.setItem('energia-theme', nextTheme)
+      window.localStorage.setItem('gridsense-theme', nextTheme)
       return nextTheme
     })
   }

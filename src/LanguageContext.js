@@ -4,13 +4,13 @@ export const LanguageContext = createContext({ lang: 'fr', setLang: () => {} })
 
 export function LanguageProvider({ children }) {
   const [langState, setLangState] = useState(() => {
-    const savedLang = window.localStorage.getItem('energIA-lang')
+    const savedLang = window.localStorage.getItem('gridsense-lang')
     return savedLang === 'en' || savedLang === 'fr' ? savedLang : 'fr'
   })
 
   function setLang(newLang) {
     setLangState(newLang)
-    window.localStorage.setItem('energIA-lang', newLang)
+    window.localStorage.setItem('gridsense-lang', newLang)
   }
 
   return createElement(LanguageContext.Provider, { value: { lang: langState, setLang } }, children)

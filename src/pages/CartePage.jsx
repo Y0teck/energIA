@@ -1,9 +1,11 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { ComposableMap, Geographies, Geography, ZoomableGroup } from 'react-simple-maps'
 import { COUNTRY_PRESETS } from '../data/countryPresets'
+import { SCENARIOS } from '../data/scenariosData'
 import { calculateResults } from '../utils/calculations'
 import { useTheme } from '../ThemeContext'
 import { useStrings } from '../i18n/useStrings'
+import { LanguageContext } from '../LanguageContext'
 
 const GEO_URL = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json'
 
@@ -124,6 +126,7 @@ const COUNTRY_RESULTS = Object.fromEntries(
       },
     ]),
 )
+const AVAILABLE_COUNTRY_COUNT = Object.keys(COUNTRY_RESULTS).length
 
 function hexToRgb(hex) {
   const value = hex.replace('#', '')
@@ -165,11 +168,18 @@ function getIsoCode(geo) {
   return ISO_A3_BY_NUMERIC[String(geo.id).padStart(3, '0')]
 }
 
+function getScenario(co2) {
+  if (co2 <= 20) return SCENARIOS.find((scenario) => scenario.id === 'ssp1_19')
+  if (co2 <= 55) return SCENARIOS.find((scenario) => scenario.id === 'ssp1_26')
+  if (co2 <= 250) return SCENARIOS.find((scenario) => scenario.id === 'ssp2_45')
+  return SCENARIOS.find((scenario) => scenario.id === 'ssp5_85')
+}
+
 function CountryPopup({ selectedCountry, onClose, isLight, s }) {
+  const { lang } = useContext(LanguageContext)
   const { preset, results } = selectedCountry
   const countryName = s.countries[preset.id] ?? preset.label
   const co2Color = getCO2Color(results.co2)
-  const parisCompatible = results.co2 < 50
 
   return (
     <div
@@ -229,14 +239,37 @@ function CountryPopup({ selectedCountry, onClose, isLight, s }) {
         ))}
       </dl>
 
-      <p className={`mt-4 rounded-lg px-3 py-2 text-sm font-semibold ${
-        parisCompatible
-          ? 'bg-[#10B981]/10 text-[#10B981]'
-          : 'bg-[#EF4444]/10 text-[#EF4444]'
-      }`}
-      >
-        {parisCompatible ? '✓' : '✗'} {parisCompatible ? s.paris.success.title : s.paris.warning.title(results.co2 - 50)}
-      </p>
+      {(() => {
+        const scenario = getScenario(results.co2)
+        if (!scenario) return null
+
+        return (
+          <div
+            className="mt-4 flex items-center justify-between gap-2 rounded-lg px-3 py-2"
+            style={{
+              backgroundColor: `${scenario.color}18`,
+              borderLeft: `3px solid ${scenario.color}`,
+            }}
+          >
+            <div>
+              <p className="text-xs font-bold" style={{ color: scenario.color }}>
+                {lang === 'fr' ? scenario.label.fr : scenario.label.en}
+              </p>
+              <p className="mt-0.5 text-xs" style={{ color: `${scenario.color}cc` }}>
+                {lang === 'fr'
+                  ? `Trajectoire de réchauffement ${scenario.tempTarget.fr}`
+                  : `${scenario.tempTarget.en} warming pathway`}
+              </p>
+            </div>
+            <span
+              className="shrink-0 rounded px-1.5 py-0.5 font-mono text-xs font-bold"
+              style={{ backgroundColor: `${scenario.color}22`, color: scenario.color }}
+            >
+              {Math.round(results.co2)} gCO₂/kWh
+            </span>
+          </div>
+        )
+      })()}
     </div>
   )
 }
@@ -389,7 +422,7 @@ export default function CartePage() {
       </section>
 
       <p className={`mt-4 text-sm ${isLight ? 'text-[#64748B]' : 'text-[#9CA3AF]'}`}>
-        {s.cartePage.note}
+        {s.cartePage.note.replace('10', AVAILABLE_COUNTRY_COUNT)}
       </p>
 
       {selectedCountry ? (

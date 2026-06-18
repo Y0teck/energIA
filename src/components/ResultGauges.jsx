@@ -1,5 +1,7 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import IndicatorModal from './IndicatorModal'
+import { LanguageContext } from '../LanguageContext'
+import { SCENARIOS } from '../data/scenariosData'
 import { useStrings } from '../i18n/useStrings'
 
 // Source donnees : resultats calcules depuis src/utils/calculations.js.
@@ -78,7 +80,7 @@ const INDICATOR_CONTENT = {
     caveat:
       "Ce score simplifie la réalité : l'hydraulique fil-de-l'eau est moins flexible qu'un barrage-lac. Les interconnexions européennes peuvent aussi compenser l'intermittence locale.",
     sources: [
-      { name: 'Méthodologie interne ÉnergIA', url: null },
+      { name: 'Méthodologie interne GridSense', url: null },
       {
         name: "RTE — Rapport sur l'adéquation du système électrique",
         url: 'https://www.rte-france.com/analyses-tendances-et-prospectives/bilan-previsionnel-2050-futurs-energetiques',
@@ -150,7 +152,7 @@ const PARIS_ACCORD_CONTENT = {
   definition:
     "L'Accord de Paris (2015) vise à limiter le réchauffement climatique à 1,5°C au-dessus des niveaux préindustriels. Pour atteindre cet objectif, le secteur électrique mondial doit décarboner en priorité : il doit atteindre une intensité carbone inférieure à 50 gCO₂eq/kWh d'ici 2030–2035, contre ~460 gCO₂eq/kWh en moyenne mondiale aujourd'hui.",
   calculation:
-    "Seuil de référence IPCC AR6 (2022) :\n- Trajectoire 1,5°C : < 50 gCO₂eq/kWh pour l'électricité d'ici 2035\n- Trajectoire 2°C : < 100 gCO₂eq/kWh\n\nL'indicateur ÉnergIA compare les émissions de votre mix simulé à ce seuil de 50 gCO₂eq/kWh.",
+    "Seuil de référence IPCC AR6 (2022) :\n- Trajectoire 1,5°C : < 50 gCO₂eq/kWh pour l'électricité d'ici 2035\n- Trajectoire 2°C : < 100 gCO₂eq/kWh\n\nL'indicateur GridSense compare les émissions de votre mix simulé à ce seuil de 50 gCO₂eq/kWh.",
   references: [
     { label: 'France (RTE 2025)', value: '~34 gCO₂eq/kWh ✓' },
     { label: 'Union européenne (2023)', value: '~242 gCO₂eq/kWh' },
@@ -256,116 +258,50 @@ function GaugeCard({ label, value, unit, colorClass, sublabel, indicator, theme,
   )
 }
 
+function getScenario(co2) {
+  if (co2 <= 20) return SCENARIOS.find((scenario) => scenario.id === 'ssp1_19')
+  if (co2 <= 55) return SCENARIOS.find((scenario) => scenario.id === 'ssp1_26')
+  if (co2 <= 250) return SCENARIOS.find((scenario) => scenario.id === 'ssp2_45')
+  return SCENARIOS.find((scenario) => scenario.id === 'ssp5_85')
+}
+
 export function ParisAccordBanner({ co2, theme, exportMode = false }) {
-  const [modalOpen, setModalOpen] = useState(false)
-  const isLight = theme === 'light'
-  const s = useStrings()
-  const isSuccess = co2 <= 50
-  const delta = co2 - 50
-  const borderColor = isSuccess ? 'border-[#10B981]' : co2 <= 200 ? 'border-[#F59E0B]' : 'border-[#EF4444]'
-  const borderHex = isSuccess ? '#10B981' : co2 <= 200 ? '#F59E0B' : '#EF4444'
-  const accentColor = isSuccess ? 'text-[#10B981]' : co2 <= 200 ? 'text-[#F59E0B]' : 'text-[#EF4444]'
-  const mutedText = isLight ? 'text-[#475569]' : 'text-[#D1D5DB]'
+  const { lang } = useContext(LanguageContext)
+  const scenario = getScenario(co2)
+  const title = lang === 'fr'
+    ? `Trajectoire ${scenario.label.fr}`
+    : `Pathway ${scenario.label.en}`
+  const subtitle = lang === 'fr'
+    ? `Ce mix correspond à une trajectoire de réchauffement ${scenario.tempTarget.fr} (GIEC AR6)`
+    : `This mix corresponds to a ${scenario.tempTarget.en} warming pathway (IPCC AR6)`
 
   return (
-    <>
-      <aside
-        className={`group relative mt-4 flex items-center justify-between gap-4 rounded-xl border p-4 pr-12 transition-colors ${borderColor} ${
-          isSuccess
-            ? isLight
-              ? 'bg-[#D1FAE5]'
-              : 'bg-[#065F46]'
-            : isLight
-              ? 'bg-[#FEF3C7]'
-              : 'bg-[#7C2D12]'
-        }`}
-        style={
-          exportMode
-            ? {
-                backgroundColor: isSuccess ? '#065F46' : '#7C2D12',
-                border: `1px solid ${borderHex}`,
-              }
-            : undefined
-        }
+    <div
+      style={{
+        borderLeftColor: scenario.color,
+        borderLeftWidth: '4px',
+        ...(exportMode ? { backgroundColor: '#1F2937' } : {}),
+      }}
+      className="mt-4 flex items-start gap-3 rounded-xl bg-neutral-900 px-4 py-3 dark:bg-neutral-800"
+    >
+      <span style={{ color: scenario.color }} className="mt-0.5 text-lg" aria-hidden="true">
+        {co2 <= 50 ? '✓' : '⚠'}
+      </span>
+      <div>
+        <p className="text-sm font-bold" style={{ color: scenario.color }}>
+          {title}
+        </p>
+        <p className="mt-0.5 text-xs text-neutral-400">
+          {subtitle}
+        </p>
+      </div>
+      <span
+        className="ml-auto rounded px-2 py-0.5 font-mono text-xs"
+        style={{ backgroundColor: `${scenario.color}22`, color: scenario.color }}
       >
-        {!exportMode ? (
-          <button
-            type="button"
-            onClick={() => setModalOpen(true)}
-            aria-label="Afficher les détails : Accord de Paris"
-            className={`absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full border text-xs font-bold opacity-0 transition-all group-hover:opacity-100 ${
-              isLight
-                ? 'border-[#CBD5E1] text-[#64748B] hover:border-[#22D3EE] hover:text-[#22D3EE]'
-                : 'border-[#374151] text-[#D1D5DB] hover:border-[#22D3EE] hover:text-[#22D3EE]'
-            }`}
-          >
-            i
-          </button>
-        ) : null}
-
-        <div className="flex items-center gap-4">
-          <span
-            className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border font-mono text-lg font-bold ${borderColor} ${accentColor}`}
-            aria-hidden="true"
-            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minWidth: '2rem', minHeight: '2rem' }}
-          >
-            {isSuccess ? (
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M4 10L8.5 14.5L16 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            ) : (
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M10 2L18.5 17H1.5L10 2Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round"/>
-                <path d="M10 8V11.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
-                <circle cx="10" cy="14.5" r="0.8" fill="currentColor"/>
-              </svg>
-            )}
-          </span>
-
-          <div>
-            <p className="font-semibold">
-              {isSuccess
-                ? s.paris.success.title
-                : s.paris.warning.title(delta)}
-            </p>
-            <p className={`mt-1 text-sm leading-relaxed ${mutedText}`}>
-              {isSuccess
-                ? s.paris.success.subtitle
-                : s.paris.warning.subtitle}
-            </p>
-          </div>
-        </div>
-
-        {!isSuccess ? (
-          <span
-            className={`shrink-0 ${accentColor}`}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              whiteSpace: 'nowrap',
-              padding: '2px 10px',
-              borderRadius: '9999px',
-              border: '1px solid currentColor',
-              fontSize: '0.75rem',
-              fontWeight: '700',
-              fontFamily: 'monospace',
-              lineHeight: '1.5',
-            }}
-          >
-            ×{(co2 / 50).toFixed(1)}
-          </span>
-        ) : null}
-      </aside>
-
-      {modalOpen && !exportMode && (
-        <IndicatorModal
-          indicator={PARIS_ACCORD_CONTENT}
-          theme={theme}
-          onClose={() => setModalOpen(false)}
-        />
-      )}
-    </>
+        {Math.round(co2)} gCO₂/kWh
+      </span>
+    </div>
   )
 }
 
@@ -378,7 +314,7 @@ export default function ResultGauges({ co2, cost, stability, renewables, lowCarb
       <section className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <GaugeCard
           label={s.gauges.co2.label}
-          value={co2}
+          value={Math.round(co2)}
           unit="gCO₂eq/kWh"
           colorClass={getCO2Color(co2)}
           sublabel={s.gauges.co2.sublabel}

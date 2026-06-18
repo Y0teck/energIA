@@ -10,7 +10,34 @@ export default function Footer({ theme }) {
       }`}
     >
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <p>ÉnergIA · DefendHack2</p>
+        <p>
+          <a
+            href="https://github.com/Y0teck/GridSense"
+            target="_blank"
+            rel="noreferrer"
+            className="transition-colors hover:text-[#22D3EE]"
+          >
+            GridSense
+          </a>
+          {' · '}
+          <a
+            href="https://www.youtube.com/c/DefendIntelligence-tech"
+            target="_blank"
+            rel="noreferrer"
+            className="transition-colors hover:text-[#22D3EE]"
+          >
+            DefendHack2
+          </a>
+          {' · '}
+          <a
+            href="https://openai.com/codex"
+            target="_blank"
+            rel="noreferrer"
+            className="transition-colors hover:text-[#22D3EE]"
+          >
+            Built with Codex
+          </a>
+        </p>
 
         <div className="flex items-center gap-4">
           <a

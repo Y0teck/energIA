@@ -6,9 +6,11 @@ import QuizPage from './pages/QuizPage'
 import GlossairePage from './pages/GlossairePage'
 import CartePage from './pages/CartePage'
 import EnergiesPage from './pages/EnergiesPage'
+import ScenariosPage from './pages/ScenariosPage'
 
 export const ROUTES = [
   { path: '/', key: 'simulator', element: <SimulateurPage /> },
+  { path: '/scenarios', key: 'scenarios', element: <ScenariosPage /> },
   { path: '/carte', key: 'carte', element: <CartePage /> },
   { path: '/energies', key: 'energies', element: <EnergiesPage /> },
   { path: '/comparaison', key: 'comparison', element: <ComparaisonPage /> },

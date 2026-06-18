@@ -78,7 +78,7 @@ Sources intermittentes (non comptées) : éolien, solaire
 - Seuil recommandé → ≥ 60/100
 
 **sources:**
-- Méthodologie interne ÉnergIA → (pas de lien)
+- Méthodologie interne GridSense → (pas de lien)
 - RTE — Rapport sur l'adéquation du système électrique → https://www.rte-france.com/analyses-tendances-et-prospectives/bilan-previsionnel-2050-futurs-energetiques
 
 ---

@@ -1,4 +1,4 @@
-# ÉnergIA — Roadmap
+# GridSense — Roadmap
 
 Statuts : ✅ Fait · 🚧 En cours · 💡 À faire
 
@@ -9,12 +9,14 @@ Statuts : ✅ Fait · 🚧 En cours · 💡 À faire
 | Statut | Fonctionnalité |
 |--------|---------------|
 | ✅ | Architecture multi-pages avec React Router extensible |
-| ✅ | Navigation menu (Simulateur, Comparaison, Sources, Aller plus loin) |
+| ✅ | Navigation : Simulateur · Scénarios GIEC · Carte · Énergies · Comparaison pays · Quiz · Glossaire · Aller plus loin · Sources |
 | ✅ | Internationalisation FR/EN (LanguageContext + fichier de strings centralisé, toggle dans le header) |
 | ✅ | Thème dark / light |
 | ✅ | Logo SVG + favicon custom |
 | ✅ | Footer avec liens sociaux (GitHub, Mastodon, Bluesky) |
-| ✅ | Page Sources & méthodologie avec liens vers IEA, IPCC, IRENA, RTE, Ember, Eurostat, RED III |
+| ✅ | Page Sources & méthodologie avec liens vers IEA, IPCC, IRENA, RTE, Ember, Eurostat, RED III, ONU, OMS |
+| ✅ | Bouton flottant "retour en haut de page" (ScrollToTop) |
+| ✅ | Renommage du projet : ÉnergIA → GridSense — "See the energy, feel the impact" |
 
 ---
 
@@ -24,13 +26,14 @@ Statuts : ✅ Fait · 🚧 En cours · 💡 À faire
 |--------|---------------|
 | ✅ | Sliders par filière avec indicateurs temps réel (CO₂, coût, stabilité, renouvelables, bas-carbone) |
 | ✅ | Seuils couleurs cohérents sur tous les indicateurs (vert / ambre / rouge) |
-| ✅ | Sélecteur de pays en grille (10 pays, état actif marqué) |
+| ✅ | Sélecteur de 50 pays en grille (2 lignes par défaut, toggle pour tout afficher) |
 | ✅ | Titre dynamique "Mix énergétique de [pays]" |
 | ✅ | Reset du label preset au mouvement des sliders |
 | ✅ | Auto-normalisation des sliders à 100% (redistribution proportionnelle entre les autres sources) |
+| ✅ | Bannière scénario GIEC : identifie quel SSP (1.9 / 2.6 / 4.5 / 8.5) le mix courant respecte, avec couleur et température cible |
+| ✅ | URL partageable encodant le mix custom (query params) + navigation depuis la page Scénarios |
 | 💡 | Contraintes réalistes par source (capacité max installée par pays) |
 | 💡 | Alerte si mix physiquement incohérent |
-| ✅ | Indicateur "Accord de Paris" avec écart par rapport à l'objectif 50 gCO₂eq/kWh |
 
 ---
 
@@ -38,13 +41,12 @@ Statuts : ✅ Fait · 🚧 En cours · 💡 À faire
 
 | Statut | Fonctionnalité |
 |--------|---------------|
-| ✅ | Comparateur côte à côte (2 pays, indicateurs différenciés) |
-| ✅ | 10 pays préconfigurés avec données IEA WEO 2025 (historique 2023) |
+| ✅ | Comparateur côte à côte (2 pays, indicateurs différenciés, meilleures valeurs surlignées) |
+| ✅ | 50 pays préconfigurés avec données IEA / Ember (historique 2023) |
 | ✅ | État par défaut : France à gauche, aucun pays à droite |
 | ✅ | Pays déjà sélectionné de l'autre côté grisé |
-| 💡 | Carte choroplèthe mondiale colorée par CO₂/kWh |
-| 💡 | Carte du monde interactive — survol : tooltip (nom + chiffres clés) · clic : popup flottante avec détail du mix (données statiques/typiques, lib envisagée : react-simple-maps) |
-| 💡 | Ajout de pays supplémentaires (UK, Japon, Australie…) |
+| ✅ | Carte choroplèthe mondiale colorée par CO₂/kWh (react-simple-maps) |
+| ✅ | Carte interactive — survol : tooltip · clic : popup avec détail du mix + statut scénario GIEC |
 
 ---
 
@@ -53,11 +55,15 @@ Statuts : ✅ Fait · 🚧 En cours · 💡 À faire
 | Statut | Fonctionnalité |
 |--------|---------------|
 | ✅ | Modales explicatives sur chaque indicateur (définition, calcul, références UE/pays, exemple concret, limites) |
-| ✅ | Fiches par source d'énergie (avantages, limites, chiffres clés) |
-| 💡 | Glossaire des termes (LCOE, pilotable, bas-carbone…) |
+| ✅ | Page Énergies : fiches pédagogiques détaillées par filière (impacts env., coûts, infrastructure, réseau) |
+| ✅ | Images Wikipedia dans les fiches Énergies |
+| ✅ | Graphe comparatif CO₂ vs LCOE par filière (BarChart double axe Y) |
+| ✅ | Sources bibliographiques par filière dans la page Énergies |
+| ✅ | Glossaire bilingue (21 termes : technique, concept, source) — dont GIEC et SSP |
 | ✅ | Mode quiz/défi : atteindre un objectif CO₂ ou coût imposé |
-| 💡 | Scénarios GIEC intégrés en mode jeu ou prévision (SSP1, SSP2, SSP5…) avec objectif Accord de Paris 1.5°C / 2°C |
-| ✅ | Indicateur "Accord de Paris" avec écart par rapport à l'objectif 50 gCO₂eq/kWh (à mixer avec scénarios GIEC) |
+| ✅ | Page Scénarios GIEC (SSP1-1.9, SSP1-2.6, SSP2-4.5, SSP5-8.5) avec trajectoires CO₂ 2020–2050, description, implications et bouton "Simuler ce mix" |
+| ✅ | Bannière scénario GIEC dans le simulateur et dans la popup carte |
+| 💡 | Annotations pédagogiques sur le graphe de trajectoires (ex. Accord de Paris, point net zéro) |
 
 ---
 
@@ -87,7 +93,7 @@ Statuts : ✅ Fait · 🚧 En cours · 💡 À faire
 |--------|---------------|
 | ✅ | URL partageable encodant le mix custom (query params) |
 | ✅ | Export PNG du résumé indicateurs |
-| 💡 | Sauvegarde de scénarios nommés en localStorage |
+| 💡 | Partage natif (Web Share API) sur mobile |
 
 ---
 
@@ -110,6 +116,7 @@ Statuts : ✅ Fait · 🚧 En cours · 💡 À faire
 
 | Statut | Fonctionnalité |
 |--------|---------------|
-| 💡 | Build APK Android (Capacitor ou PWA) |
+| ✅ | PWA installable (manifest + service worker via vite-plugin-pwa) |
+| 💡 | Build APK Android (Capacitor)A) |
 | 💡 | Publication de l'APK dans les Releases GitHub |
 | 💡 | PWA installable (manifest + service worker) |

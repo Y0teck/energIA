@@ -1,6 +1,6 @@
 // Source donnees : mix de reference ODRE / RTE et coefficients indicatifs.
 
-import { useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import html2canvas from 'html2canvas'
 import MixSliders from '../components/MixSliders'
@@ -17,6 +17,7 @@ import {
   calcStability,
 } from '../utils/calculations'
 import { useTheme } from '../ThemeContext'
+import { LanguageContext } from '../LanguageContext'
 import { useStrings } from '../i18n/useStrings'
 
 const MIX_KEYS = [
@@ -82,6 +83,7 @@ function ShareBar({ exportRef, isLight }) {
   const [captureState, setCaptureState] = useState('idle')
   const [shareCopied, setShareCopied] = useState(false)
   const s = useStrings()
+  const { lang } = useContext(LanguageContext)
 
   const defaultButtonClass = isLight
     ? 'border-[#CBD5E1] text-[#64748B] hover:border-[#22D3EE] hover:text-[#22D3EE]'
@@ -119,7 +121,7 @@ function ShareBar({ exportRef, isLight }) {
         const url = URL.createObjectURL(blob)
         const link = document.createElement('a')
         link.href = url
-        link.download = 'energIA-mix.png'
+        link.download = 'gridsense-mix.png'
         link.click()
         URL.revokeObjectURL(url)
         showCaptureSuccess()
@@ -133,7 +135,7 @@ function ShareBar({ exportRef, isLight }) {
     try {
       if (navigator.share) {
         await navigator.share({
-          title: 'ÉnergIA — Mon mix électrique',
+          title: lang === 'fr' ? 'GridSense — Mon mix électrique' : 'GridSense — My energy mix',
           text: "Découvrez l'impact de ce mix énergétique sur le CO₂, le coût et la stabilité du réseau.",
           url: window.location.href,
         })
@@ -231,7 +233,18 @@ export default function SimulateurPage() {
     if (!searchParamsMatchMix(searchParams, mix, activePresetId)) {
       setSearchParams(getMixSearchParams(mix, activePresetId), { replace: true })
     }
-  }, [mix, activePresetId, searchParams, setSearchParams])
+  }, [mix, activePresetId, setSearchParams])
+
+  useEffect(() => {
+    const mixFromUrl = getMixFromSearchParams(searchParams)
+    if (!mixFromUrl) return
+
+    const isSame = MIX_KEYS.every((key) => mixFromUrl[key] === mix[key])
+    if (!isSame) {
+      setMix(mixFromUrl)
+      setActivePresetId(getPresetIdFromSearchParams(searchParams))
+    }
+  }, [searchParams]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
@@ -291,7 +304,7 @@ export default function SimulateurPage() {
             <circle cx="24" cy="24" r="17" stroke="#00D9FF" strokeWidth="3"/>
             <path d="M27 7C34.5 8.5 40 15.3 40 23.5C40 32.6 32.6 40 23.5 40C15.7 40 9.1 34.6 7.4 27.3" stroke="#38F2B2" strokeWidth="3" strokeLinecap="round"/>
             <path d="M26.8 13L16 25.2H24L21.2 35L32 22.8H24L26.8 13Z" fill="#FFB000"/>
-            <text x="52" y="31" fontFamily="Inter, system-ui, sans-serif" fontSize="25" fontWeight="800" letterSpacing="0.5" fill="#00D9FF">ÉnergIA</text>
+            <text x="52" y="31" fontFamily="Inter, system-ui, sans-serif" fontSize="25" fontWeight="800" letterSpacing="0.5" fill="#00D9FF">GridSense</text>
           </svg>
           <p className="text-right text-sm font-semibold text-[#F9FAFB]">{exportMixLabel}</p>
         </div>
