@@ -1,8 +1,12 @@
 // Source donnees : mix de reference et coefficients depuis src/data/energyData.js.
 
+import { useState } from 'react'
 import { ENERGY_SOURCES } from '../data/energyData'
+import { SOURCE_CONTENT } from '../data/sourceContent'
+import SourceModal from './SourceModal'
 
 export default function MixSliders({ mix, onChange, theme, presetLabel = null }) {
+  const [openSource, setOpenSource] = useState(null)
   const sources = Object.values(ENERGY_SOURCES)
   const isLight = theme === 'light'
 
@@ -69,7 +73,7 @@ export default function MixSliders({ mix, onChange, theme, presetLabel = null })
 
       <div className="space-y-5">
         {sources.map((source) => (
-          <label key={source.id} className="block">
+          <label key={source.id} className="group block">
             <div className="mb-2 flex items-center justify-between gap-4">
               <span
                 className={`flex min-w-0 items-center gap-2 text-sm ${
@@ -79,13 +83,30 @@ export default function MixSliders({ mix, onChange, theme, presetLabel = null })
                 <span aria-hidden="true">{source.icon}</span>
                 <span className="truncate">{source.label}</span>
               </span>
-              <span
-                className={`font-mono text-sm font-bold ${
-                  isLight ? 'text-[#111827]' : 'text-[#F9FAFB]'
-                }`}
-              >
-                {mix[source.id]}%
-              </span>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={(event) => {
+                    event.preventDefault()
+                    setOpenSource(SOURCE_CONTENT[source.id])
+                  }}
+                  aria-label={`Afficher les détails : ${source.label}`}
+                  className={`flex h-6 w-6 items-center justify-center rounded-full border text-xs font-bold opacity-0 transition-all group-hover:opacity-100 ${
+                    isLight
+                      ? 'border-[#CBD5E1] text-[#64748B] hover:border-[#22D3EE] hover:text-[#22D3EE]'
+                      : 'border-[#374151] text-[#6B7280] hover:border-[#22D3EE] hover:text-[#22D3EE]'
+                  }`}
+                >
+                  i
+                </button>
+                <span
+                  className={`font-mono text-sm font-bold ${
+                    isLight ? 'text-[#111827]' : 'text-[#F9FAFB]'
+                  }`}
+                >
+                  {mix[source.id]}%
+                </span>
+              </div>
             </div>
 
             <input
@@ -106,6 +127,10 @@ export default function MixSliders({ mix, onChange, theme, presetLabel = null })
           </label>
         ))}
       </div>
+
+      {openSource ? (
+        <SourceModal source={openSource} theme={theme} onClose={() => setOpenSource(null)} />
+      ) : null}
     </section>
   )
 }
